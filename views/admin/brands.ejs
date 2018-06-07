@@ -1,0 +1,27 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title">Brands</h2>
+<a href="/admin/brands/add-brand" class="btn btn-primary">Add a new brand</a>
+<br><br>
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% brands.forEach(function(brnd){ %>
+        <tr>
+            <td><%= brnd.name %></td>
+            <td><a href="/admin/brands/edit-brand/<%= brnd._id %>">Edit</a></td>
+            <td><a class="confirmDeletion" href="/admin/brands/delete-brand/<%= brnd._id %>">Delete</a></td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+<%- include('../_layouts/adminfooter') %>

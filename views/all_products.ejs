@@ -1,0 +1,22 @@
+<% include _layouts/header %>
+
+<div class="row products">    
+    <% products.forEach(function(p){ %>
+            <div class="col-xs-12 col-md-4 p">
+                <a class="pa" href="/products/<%= p.brand %>/<%= p.slug %>">
+                    <img class="pimage" src="/product_images/<%= p.id %>/<%= p.image %>" alt="">
+                </a>
+                <h3><%= p.name %></h3>
+                <h4>£<%= parseFloat(p.price).toFixed(2) %></h4>
+                <% if (loggedIn) { %>
+                <p><a href="/cart/add/<%= p.slug %>">Add to cart</a></p>
+                <% } else {%>
+                <p>Please login to purchase items.</p>
+                <% } %>
+                <a class="vd" href="/products/<%= p.brand %>/<%= p.slug %>">View Details</a>
+            </div>
+        <% }); %>
+    
+</div>
+
+<% include _layouts/footer %>
