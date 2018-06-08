@@ -41,7 +41,7 @@
             <a class="clearcart btn btn-danger" href="/cart/clear">Clear cart</a>
         </td>
         <td colspan="5" align="right">
-            <a class="btn btn-primary buynow" href="#">Buy now</a>
+            <a class="btn btn-primary buynow" href="/cart/buynow">Buy now</a>
         </td>
     </tr>
     
@@ -76,6 +76,7 @@ $(function() {
             return false;
     });
     
+    /*
     $('a.buynow').on('click', function (e) {
         e.preventDefault();
         
@@ -84,7 +85,7 @@ $(function() {
             $('.ajaxbg').show();
         });
     });
-        
+    */    
 });
     
 </script>

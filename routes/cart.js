@@ -125,15 +125,26 @@ router.get('/clear', function (req, res) {
 /*
  * GET buy now
  */
-/*
+
 router.get('/buynow', function (req, res) {
 
     delete req.session.cart;
     
-    res.sendStatus(200);
+    //res.sendStatus(200);
+    res.redirect('/cart/order');
 
 });
+
+/*
+*   Order confirmation 
 */
+
+router.get('/order', (req, res) => {
+    res.render('order', {
+        title: 'Order Confirmation'
+    })
+});
+
 // Exports
 module.exports = router;
 
