@@ -24,7 +24,10 @@ var ProductSchema = mongoose.Schema({
     },
     image: {
         type: String
-    }
+    },
+    instock: {
+        type: Boolean        
+    }    
     
 });
 

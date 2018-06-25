@@ -66,3 +66,12 @@ table.alignmiddle td {
     font-size: 30px;
     font-weight: bold;
 }
+
+.inStock {
+    color: green;   
+}
+
+.outOfStock {
+    color: red;
+    font-weight: bold;
+}

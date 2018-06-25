@@ -9,11 +9,14 @@
                 <h3><%= p.name %></h3>
                 <h4>£<%= parseFloat(p.price).toFixed(2) %></h4>
                 <% if (loggedIn) { %>
+                <p>
+                    Availability: <%if(p.instock) {%> <span class="inStock">In Stock</span> <%} else {%><span class="outOfStock">Out of Stock</span> <%}%>
+                </p>
                 <p><a href="/cart/add/<%= p.slug %>">Add to cart</a></p>
                 <% } else {%>
                 <p>Please login to purchase items.</p>
                 <% } %>
-                <a class="vd" href="/products/<%= p.brand %>/<%= p.slug %>">View Details</a>
+                <a class="vd" href="/products/<%= p.brand %>/<%= p.slug %>">View Details</a>                
             </div>
         <% }); %>
     

@@ -14,6 +14,7 @@
             <th>Price</th>
             <th>Brand</th>
             <th>Sweet Image</th>
+            <th>In stock</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -30,6 +31,13 @@
                 <% } else {%>
                 <img id="noimage" src="/product_images/<%= product._id %>/<%= product.image %>">
                 <% }%>
+            </td>
+            <td>
+                <% if (product.instock) { %>
+                    yes
+                <% } else {%>
+                    no
+                <%}%>
             </td>
             <td><a href="/admin/products/edit-product/<%= product._id %>">Edit</a></td>
             <td><a class="confirmDeletion" href="/admin/products/delete-product/<%= product._id %>">Delete</a></td>

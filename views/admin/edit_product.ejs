@@ -51,6 +51,11 @@
         <img src="#" id="imgPreview" alt="">
     </div>
     
+    <div class="form-group">
+        <label for="">In Stock</label>       
+        <input type="checkbox" name="instock" <%if(instock){%> checked <%}%> >
+    </div>
+
     <input type="hidden" name="pimage" value="<%= image %>">
     <button class="btn btn-default">Submit</button>
 </form>

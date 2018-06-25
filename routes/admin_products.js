@@ -105,7 +105,8 @@ router.post('/add-product', function (req, res) {
                     desc: desc,
                     price: price2,
                     brand: brand,
-                    image: imageFile
+                    image: imageFile,
+                    instock: true
                 });
 
                 product.save(function (err) {
@@ -178,6 +179,7 @@ router.get('/edit-product/:id', isAdmin, function (req, res) {
                             price: parseFloat(p.price).toFixed(2),
                             image: p.image,
                             galleryImages: galleryImages,
+                            instock: p.instock,
                             id: p._id
                         });
                     }
@@ -211,7 +213,8 @@ router.post('/edit-product/:id', function (req, res) {
     var price = req.body.price;
     var brand = req.body.brand;
     var pimage = req.body.pimage;
-    var id = req.params.id;
+    var instock = req.body.instock;
+    var id = req.params.id;    
 
     var errors = req.validationErrors();
 
@@ -239,6 +242,7 @@ router.post('/edit-product/:id', function (req, res) {
                     if (imageFile != "") {
                         p.image = imageFile;
                     }
+                    p.instock = instock == 'on' ? true: false;
 
                     p.save(function (err) {
                         if (err)
