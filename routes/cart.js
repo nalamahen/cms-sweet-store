@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var nodemailer = require('nodemailer');
+
 
 // Get Product model
 var Product = require('../models/product');
@@ -11,7 +13,7 @@ router.get('/add/:product', function (req, res) {
 
     var slug = req.params.product;
 
-    Product.findOne({slug: slug}, function (err, p) {
+    Product.findOne({ slug: slug }, function (err, p) {
         if (err)
             console.log(err);
 
@@ -116,7 +118,7 @@ router.get('/update/:product', function (req, res) {
 router.get('/clear', function (req, res) {
 
     delete req.session.cart;
-    
+
     req.flash('success', 'Cart cleared!');
     res.redirect('/cart/checkout');
 
@@ -128,8 +130,48 @@ router.get('/clear', function (req, res) {
 
 router.get('/buynow', function (req, res) {
 
-    delete req.session.cart;
+    //console.log('req.session.cart', req.session.cart);
+
+    const cartDetails = req.session.cart;
+    const user = res.locals.user;
     
+    var total = 0;
+    var subTotal = 0;
+    var emailBody = `<!DOCTYPE html><html><head><title>Bizza Candy - order confirmation</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head><body><p>Dear ${user.name}, <br/><br/>Your below order has been received and we will contact you for payment informaton.</p><table class="table table-striped alignmiddle"><tr><th>Name</th><th>Price</th><th>Quantity</th><th>&nbsp;</th></tr>`;
+    cartDetails.forEach((product) => {
+        subTotal = parseFloat(product.qty * product.price).toFixed(2);
+        emailBody += `<tr><td>${product.title}</td><td>${product.price}</td><td>${product.qty}</td><td>${subTotal}</td>`;
+        total += +subTotal;
+    });
+
+    emailBody += `<tr><td colspan="6" align="right"><b>Total: </b> £${parseFloat(total).toFixed(2)}</td></tr></table><br/><br/> Regards,<br>bizzacandy.com</body></html>`;
+
+    delete req.session.cart;
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'mail2nalamahen@gmail.com',
+            pass: '02me1966'
+        }
+    });
+
+    var mailOptions = {
+        from: 'mail2nalamahen@gmail.com',
+        to: 'mail2mahen@yahoo.co.uk',
+        subject: 'Thank you for your order',
+       html: emailBody
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+            res.redirect('/cart/order');
+        }
+    });
+
     //res.sendStatus(200);
     res.redirect('/cart/order');
 

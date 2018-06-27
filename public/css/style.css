@@ -75,3 +75,12 @@ table.alignmiddle td {
     color: red;
     font-weight: bold;
 }
+
+.navbar {
+     background:#0F3C8E;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #CCC;
+}
+
