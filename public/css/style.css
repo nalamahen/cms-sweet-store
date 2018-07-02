@@ -84,3 +84,18 @@ table.alignmiddle td {
     color: #CCC;
 }
 
+.btn-info {
+    color: #fff;
+    background-color: #0F3C8E;
+    border-color: #0F3C8E;
+}
+
+.search input[type=text] {
+    /*float: right;*/
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 15px;
+}
+

@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title><%= title %></title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">            
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
         <link rel="stylesheet" href="/css/style.css" />
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -79,10 +80,15 @@
                 </div>
                 <% });%>
             <% }%>
-    
+           
             <div class="row">
                 <div class="col-xs-12 col-md-3 well">
-                    <h3>Brands</h3>
+                    <div class="search">
+                        <form method="post" action="/products/search">
+                        <input type="text" name="search" placeholder="Search.."><button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div> 
+                    <h3>Brands</h3>                                 
                     <ul class="list-group">
                         <li class="list-group-item"><a href="/products">All products</a></li>
                         <% brands.forEach(function(c){ %>
@@ -90,6 +96,6 @@
                         <% }); %>
                     </ul>
                 </div>
-                <div class="col-xs-12 col-md-1"></div>
+                <!-- <div class="col-xs-12 col-md-1"></div> -->
                 <div class="col-xs-12 col-md-8">
-    
+                 

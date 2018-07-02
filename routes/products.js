@@ -30,6 +30,24 @@ router.get('/', function (req, res) {
 
 });
 
+router.post('/search', (req, res) => {
+    var searchText = req.body.search;
+    var loggedIn = (req.isAuthenticated()) ? true : false;
+   
+    Product.find({"name" : {'$regex': new RegExp(searchText, "i")}}, (err, products) => {        
+        if(err) {
+            console.log(err);
+        }
+
+         res.render('all_products', {
+            title: 'search products',
+            products: products,
+            loggedIn: loggedIn
+        });
+    });
+  
+});
+
 
 /*
  * GET products by brand

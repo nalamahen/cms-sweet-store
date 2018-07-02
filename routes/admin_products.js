@@ -25,9 +25,11 @@ router.get('/', isAdmin, function (req, res) {
     Product.find(function (err, products) {
         res.render('admin/products', {
             products: products,
-            count: count
-        });
+            //count: count
+            count: products.length
+        });   
     });
+
 });
 
 /*

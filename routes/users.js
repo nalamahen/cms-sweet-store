@@ -24,12 +24,14 @@ router.post('/register', function (req, res) {
 
     var name = req.body.name;
     var email = req.body.email;
+    var telphone = req.body.telphone;
     var username = req.body.username;
     var password = req.body.password;
     var password2 = req.body.password2;
 
     req.checkBody('name', 'Name is required!').notEmpty();
     req.checkBody('email', 'Email is required!').isEmail();
+    req.checkBody('telphone', 'Telephone number is required!').notEmpty();
     req.checkBody('username', 'Username is required!').notEmpty();
     req.checkBody('password', 'Password is required!').notEmpty();
     req.checkBody('password2', 'Passwords do not match!').equals(password);
@@ -54,6 +56,7 @@ router.post('/register', function (req, res) {
                 var user = new User({
                     name: name,
                     email: email,
+                    telphone: telphone,
                     username: username,
                     password: password,
                     admin: 0

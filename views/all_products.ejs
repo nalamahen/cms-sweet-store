@@ -1,6 +1,6 @@
 <% include _layouts/header %>
 
-<div class="row products">    
+<div class="row products">  
     <% products.forEach(function(p){ %>
             <div class="col-xs-12 col-md-4 p">
                 <a class="pa" href="/products/<%= p.brand %>/<%= p.slug %>">
@@ -17,7 +17,7 @@
                 <p>Please login to purchase items.</p>
                 <% } %>
                 <a class="vd" href="/products/<%= p.brand %>/<%= p.slug %>">View Details</a>                
-            </div>
+            </div>       
         <% }); %>
     
 </div>

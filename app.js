@@ -124,6 +124,12 @@ app.get('*', function(req,res,next) {
    next();
 });
 
+app.post('*', function(req,res,next) {
+   res.locals.cart = req.session.cart;
+   res.locals.user = req.user || null;
+   next();
+});
+
 // Set routes
 var pages = require('./routes/pages.js');
 var products = require('./routes/products.js');
