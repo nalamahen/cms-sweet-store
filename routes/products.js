@@ -24,6 +24,7 @@ router.get('/', function (req, res) {
         res.render('all_products', {
             title: 'All products',
             products: products,
+            count: products.length,
             loggedIn: loggedIn
         });
     });
@@ -42,6 +43,7 @@ router.post('/search', (req, res) => {
          res.render('all_products', {
             title: 'search products',
             products: products,
+            count: products.length,
             loggedIn: loggedIn
         });
     });
@@ -65,6 +67,7 @@ router.get('/:brand', function (req, res) {
             res.render('brand_products', {
                 title: c.name,
                 products: products,
+                count: products.length,
                 loggedIn: loggedIn
             });
         });

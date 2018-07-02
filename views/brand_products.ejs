@@ -1,5 +1,6 @@
 <% include _layouts/header %>
 
+<% if (count > 0) { %>
 <div class="row products">
     
     <% products.forEach(function(p){ %>
@@ -19,5 +20,8 @@
         <% }); %>
     
 </div>
+<% } else {%>
+<p>There are no products availabe for the brand.</p>
+<% }%>
 
 <% include _layouts/footer %>

@@ -1,5 +1,6 @@
 <% include _layouts/header %>
 
+<% if (count > 0) { %>
 <div class="row products">  
     <% products.forEach(function(p){ %>
             <div class="col-xs-12 col-md-4 p">
@@ -21,5 +22,8 @@
         <% }); %>
     
 </div>
+<% } else {%>
+<p>No products available for your search. Please search again with different words.</p>
+<% }%>
 
 <% include _layouts/footer %>
