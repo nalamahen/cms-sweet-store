@@ -1,13 +1,24 @@
 img.pimage {
     width: 150px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    /*border: 1px solid #ddd;*/
+    /*border-radius: 6px;*/
     padding: 10px;    
 }
 
 a.pa {
     display: inline-block;
-    height: 160px;    
+    /*height: 160px;*/
+}
+
+.col-md-4 {    
+    height: 324px;
+    border: dotted 1px #ccc;      
+}
+
+.well {
+    margin-top: 19px;
+    margin-right: 10px;
+    background-color: lavender;
 }
 
 .row.products .p {
@@ -77,17 +88,18 @@ table.alignmiddle td {
 }
 
 .navbar {
-     background:#0F3C8E;
+     background:#513488
+;
 }
 
 .navbar-inverse .navbar-nav>li>a {
-    color: #CCC;
+    color: #FFF200;
 }
 
 .btn-info {
-    color: #fff;
-    background-color: #0F3C8E;
-    border-color: #0F3C8E;
+    color: #FFF200;
+    background-color: #513488;
+    border-color: #513488;
 }
 
 .search input[type=text] {
