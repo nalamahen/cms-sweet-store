@@ -7,13 +7,15 @@
                 <a class="pa" href="/products/<%= p.brand %>/<%= p.slug %>">
                     <img class="pimage" src="/product_images/<%= p.id %>/<%= p.image %>" alt="">
                 </a>
-                <h3><%= p.name %></h3>
+                <h4><%= p.name %></h4>
                 <h4>£<%= parseFloat(p.price).toFixed(2) %></h4>
                 <% if (loggedIn) { %>
+                <!--
                 <p>
                     Availability: <%if(p.instock) {%> <span class="inStock">In Stock</span> <%} else {%><span class="outOfStock">Out of Stock</span> <%}%>
                 </p>
-                <p><a href="/cart/add/<%= p.slug %>">Add to cart</a></p>
+                -->
+                <p><a href="/cart/add/<%= p.slug %>">Add to cart</a>&nbsp;&nbsp;<a class="vd" href="/products/<%= p.brand %>/<%= p.slug %>">View Details</a>  </p>
                 <% } else {%>
                 <p>Please login to purchase items.</p>
                 <% } %>

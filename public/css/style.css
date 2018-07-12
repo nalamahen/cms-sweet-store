@@ -2,7 +2,7 @@ img.pimage {
     width: 150px;
     /*border: 1px solid #ddd;*/
     /*border-radius: 6px;*/
-    padding: 10px;    
+    padding-top: 10px;    
 }
 
 a.pa {
@@ -11,14 +11,19 @@ a.pa {
 }
 
 .col-md-4 {    
-    height: 324px;
+    height: 400px;
     border: dotted 1px #ccc;      
 }
 
 .well {
     margin-top: 19px;
     margin-right: 10px;
-    background-color: lavender;
+    background-color: lavender;   
+}
+
+.list-group {
+    max-height: 250px;
+    overflow: auto; 
 }
 
 .row.products .p {
@@ -109,5 +114,9 @@ table.alignmiddle td {
     margin-top: 8px;
     margin-right: 16px;
     font-size: 15px;
+}
+
+h4.red {
+    color: red;
 }
 

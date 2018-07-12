@@ -17,7 +17,7 @@ router.get('/', function (req, res) {
 //router.get('/', isUser, function (req, res) {
     var loggedIn = (req.isAuthenticated()) ? true : false;
     
-    Product.find(function (err, products) {
+    Product.find({instock:true}, function (err, products) {
         if (err)
             console.log(err);
 
@@ -35,7 +35,7 @@ router.post('/search', (req, res) => {
     var searchText = req.body.search;
     var loggedIn = (req.isAuthenticated()) ? true : false;
    
-    Product.find({"name" : {'$regex': new RegExp(searchText, "i")}}, (err, products) => {        
+    Product.find({"name" : {'$regex': new RegExp(searchText, "i")}, "instock":true} , (err, products) => {        
         if(err) {
             console.log(err);
         }
@@ -60,7 +60,7 @@ router.get('/:brand', function (req, res) {
     var loggedIn = (req.isAuthenticated()) ? true : false;
 
     Brand.findOne({slug: brandSlug}, function (err, c) {
-        Product.find({brand: brandSlug}, function (err, products) {
+        Product.find({brand: brandSlug, instock: true}, function (err, products) {
             if (err)
                 console.log(err);
 

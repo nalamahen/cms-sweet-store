@@ -2,9 +2,24 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var bcrypt = require('bcryptjs');
+var auth = require('../config/auth');
+var isAdmin = auth.isAdmin;
 
 // Get Users model
 var User = require('../models/user');
+
+/*
+* Get users
+*/
+
+router.get('/', isAdmin,  (req, res) => {
+    User.find(function (err, users) {
+        if (err) return console.log(err);
+        res.render('admin/users', {
+            users: users
+        });
+    })
+});
 
 /*
  * GET register

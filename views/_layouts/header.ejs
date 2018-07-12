@@ -88,12 +88,14 @@
                         <input type="text" name="search" placeholder="Search.."><button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div> 
-                    <h3>Brands</h3>                                 
+                    <h4 class="red">Brands</h4>                                 
                     <ul class="list-group">
                         <li class="list-group-item"><a href="/products">All products</a></li>
+                        
                         <% brands.forEach(function(c){ %>
                             <li class="list-group-item"><a href="/products/<%= c.slug %>"><%= c.name %></a></li>
                         <% }); %>
+                        
                     </ul>
                 </div>
                 <!-- <div class="col-xs-12 col-md-1"></div> -->

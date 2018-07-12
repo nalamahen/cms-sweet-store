@@ -1,0 +1,26 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title">Users</h2>
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Telephone</th>
+            <th>username</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% users.forEach((user) => { %>
+        <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.telephone %></td>
+            <td><%= user.username %></td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+<%- include('../_layouts/adminfooter') %>

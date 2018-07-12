@@ -6,6 +6,11 @@
     border: 1px dashed #ccc;
 }
 
+.navbar {
+     background:#513488
+;
+}
+
 #imgPreview {
     margin: 20px;
 }
