@@ -1,5 +1,9 @@
 <% include _layouts/header %>
 
+<% if(title == 'Home') { %>
+  <% include carousel %>
+<%}%>
+
 <%- content %>
 
 <% include _layouts/footer %>

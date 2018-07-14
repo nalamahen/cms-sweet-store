@@ -18,7 +18,8 @@ a.pa {
 .well {
     margin-top: 19px;
     margin-right: 10px;
-    background-color: lavender;   
+    background-color: lavender; 
+    width: 300px;  
 }
 
 .list-group {
@@ -28,7 +29,7 @@ a.pa {
 
 .row.products .p {
     margin-top: 20px;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
 }
 
 img.spi {
@@ -120,3 +121,29 @@ h4.red {
     color: red;
 }
 
+#myCarousel {
+    height: 500px;
+}
+
+.carousel-control {
+    background: transparent;
+    width: 5%;
+    top: 160px;
+    height: 10px
+}
+
+.row {
+    margin-left: 10px;
+}
+
+.carousel-control span.glyphicon {
+    color: red;
+}
+
+.carousel-control.left {
+    padding-left: 10px;
+}
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none;
+}
