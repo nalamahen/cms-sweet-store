@@ -108,7 +108,8 @@ router.post('/add-product', function (req, res) {
                     price: price2,
                     brand: brand,
                     image: imageFile,
-                    instock: true
+                    instock: true,
+                    vat: true
                 });
 
                 product.save(function (err) {
@@ -182,6 +183,7 @@ router.get('/edit-product/:id', isAdmin, function (req, res) {
                             image: p.image,
                             galleryImages: galleryImages,
                             instock: p.instock,
+                            vat: p.vat,
                             id: p._id
                         });
                     }

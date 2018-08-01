@@ -27,7 +27,10 @@ var ProductSchema = mongoose.Schema({
     },
     instock: {
         type: Boolean        
-    }    
+    },
+    vat: {
+        type: Boolean
+    }
     
 });
 
