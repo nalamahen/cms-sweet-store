@@ -13,8 +13,8 @@ router.get('/', function (req, res) {
             console.log(err);
 
         res.render('index', {
-            title: 'Home',
-            content: 'Home Page Test'
+            title: page.title,
+            content: page.content
         });
     });
     
