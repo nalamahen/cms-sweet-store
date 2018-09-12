@@ -55,7 +55,6 @@ router.post('/search', (req, res) => {
  * GET products by brand
  */
 router.get('/:brand', function (req, res) {
-
     var brandSlug = req.params.brand;
     var loggedIn = (req.isAuthenticated()) ? true : false;
 

@@ -10,7 +10,8 @@ var passport = require('passport');
 
 // Connect to db
 //mongoose.connect(config.database);
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/cmscart');
+//mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/cmscart');
+mongoose.connect('mongodb://testUser:test@ds219130.mlab.com:19130/sweetshop');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
