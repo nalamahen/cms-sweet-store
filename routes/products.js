@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs-extra');
+var paths = require('../config/paths');
 //var auth = require('../config/auth');
 //var isUser = auth.isUser;
 
@@ -25,7 +25,8 @@ router.get('/', function (req, res) {
             title: 'All products',
             products: products,
             count: products.length,
-            loggedIn: loggedIn
+            loggedIn: loggedIn,
+            productImageUrl: paths.s3ImageUrl
         });
     });
 
@@ -44,7 +45,8 @@ router.post('/search', (req, res) => {
             title: 'search products',
             products: products,
             count: products.length,
-            loggedIn: loggedIn
+            loggedIn: loggedIn,
+            productImageUrl: paths.s3ImageUrl,
         });
     });
   
@@ -67,7 +69,8 @@ router.get('/:brand', function (req, res) {
                 title: c.name,
                 products: products,
                 count: products.length,
-                loggedIn: loggedIn
+                loggedIn: loggedIn,
+                productImageUrl: paths.s3ImageUrl
             });
         });
     });
@@ -78,29 +81,19 @@ router.get('/:brand', function (req, res) {
  * GET product details
  */
 router.get('/:brand/:product', function (req, res) {
-
-    var galleryImages = null;
+    
     var loggedIn = (req.isAuthenticated()) ? true : false;
 
     Product.findOne({slug: req.params.product}, function (err, product) {
         if (err) {
             console.log(err);
-        } else {
-            var galleryDir = 'public/product_images/' + product._id + '/gallery';
-
-            fs.readdir(galleryDir, function (err, files) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    galleryImages = files;
-
-                    res.render('product', {
-                        title: product.name,
-                        p: product,
-                        galleryImages: galleryImages,
-                        loggedIn: loggedIn
-                    });
-                }
+        } else {            
+            res.render('product', {
+                title: product.name,
+                p: product,
+                productImageUrl: paths.s3ImageUrl,
+                loggedIn: loggedIn,
+                productImageUrl: paths.s3ImageUrl
             });
         }
     });

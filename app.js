@@ -8,6 +8,7 @@ var expressValidator = require('express-validator');
 var fileUpload = require('express-fileupload');
 var passport = require('passport');
 
+
 // Connect to db
 //mongoose.connect(config.database);
 //mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/cmscart');

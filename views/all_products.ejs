@@ -5,7 +5,7 @@
     <% products.forEach(function(p){ %>
             <div class="col-xs-12 col-md-4 p">
                 <a class="pa" href="/products/<%= p.brand %>/<%= p.slug %>">
-                    <img class="pimage" src="/product_images/<%= p.id %>/<%= p.image %>" alt="">
+                    <img class="pimage" src="<%= productImageUrl %>/<%= p.image %>" alt="">
                 </a>
                 <h4><%= p.name %></h4>
                 <h4>£<%= parseFloat(p.price).toFixed(2) %></h4>

@@ -4,7 +4,14 @@ var mkdirp = require('mkdirp');
 var fs = require('fs-extra');
 var resizeImg = require('resize-img');
 var auth = require('../config/auth');
+var paths = require('../config/paths');
 var isAdmin = auth.isAdmin;
+
+var AWS = require('aws-sdk');
+
+AWS.config.loadFromPath('./config/upload.json');
+var imageBucket = 'sweet-product-images';
+var s3Bucket = new AWS.S3({params: {Bucket: imageBucket}}); 
 
 // Get Sweet model
 var Product = require('../models/product');
@@ -26,7 +33,8 @@ router.get('/', isAdmin, function (req, res) {
         res.render('admin/products', {
             products: products,
             //count: count
-            count: products.length
+            count: products.length,
+            productImageUrl: paths.s3ImageUrl
         });   
     });
 
@@ -36,7 +44,7 @@ router.get('/', isAdmin, function (req, res) {
  * GET add product
  */
 router.get('/add-product', isAdmin, function (req, res) {
-
+       
     var name = "";
     var desc = "";
     var price = "";
@@ -115,26 +123,12 @@ router.post('/add-product', function (req, res) {
                 product.save(function (err) {
                     if (err)
                         return console.log(err);
-
-                    mkdirp('public/product_images/' + product._id, function (err) {
-                        return console.log(err);
-                    });
-
-                    mkdirp('public/product_images/' + product._id + '/gallery', function (err) {
-                        return console.log(err);
-                    });
-
-                    mkdirp('public/product_images/' + product._id + '/gallery/thumbs', function (err) {
-                        return console.log(err);
-                    });
-
-                    if (imageFile != "") {
+                                        
+                    if(imageFile != "") {
                         var productImage = req.files.image;
-                        var path = 'public/product_images/' + product._id + '/' + imageFile;
 
-                        productImage.mv(path, function (err) {
-                            return console.log(err);
-                        });
+                        addAndRemoveImage('add', imageFile, productImage, req, res);
+                                                
                     }
 
                     req.flash('success', 'Product added!');
@@ -163,31 +157,20 @@ router.get('/edit-product/:id', isAdmin, function (req, res) {
             if (err) {
                 console.log(err);
                 res.redirect('/admin/products');
-            } else {
-                var galleryDir = 'public/product_images/' + p._id + '/gallery';
-                var galleryImages = null;
-
-                fs.readdir(galleryDir, function (err, files) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        galleryImages = files;
-
-                        res.render('admin/edit_product', {
-                            name: p.name,
-                            errors: errors,
-                            desc: p.desc,
-                            brands: brands,
-                            brand: p.brand.replace(/\s+/g, '-').toLowerCase(),
-                            price: parseFloat(p.price).toFixed(2),
-                            image: p.image,
-                            galleryImages: galleryImages,
-                            instock: p.instock,
-                            vat: p.vat,
-                            id: p._id
-                        });
-                    }
-                });
+            } else {                
+                res.render('admin/edit_product', {
+                    name: p.name,
+                    errors: errors,
+                    desc: p.desc,
+                    brands: brands,
+                    brand: p.brand.replace(/\s+/g, '-').toLowerCase(),
+                    price: parseFloat(p.price).toFixed(2),
+                    image: p.image,  
+                    productImageUrl: paths.s3ImageUrl,                 
+                    instock: p.instock,
+                    vat: p.vat,
+                    id: p._id
+                });                
             }
         });
 
@@ -238,6 +221,8 @@ router.post('/edit-product/:id', function (req, res) {
                     if (err)
                         console.log(err);
 
+                    var oldImage = p.image;   
+
                     p.name = name;
                     p.slug = slug;
                     p.desc = desc;
@@ -249,24 +234,15 @@ router.post('/edit-product/:id', function (req, res) {
                     p.instock = instock == 'on' ? true: false;
 
                     p.save(function (err) {
+                        var productImage = req.files.image;
                         if (err)
                             console.log(err);
 
                         if (imageFile != "") {
-                            if (pimage != "") {
-                                fs.remove('public/product_images/' + id + '/' + pimage, function (err) {
-                                    if (err)
-                                        console.log(err);
-                                });
-                            }
-
-                            var productImage = req.files.image;
-                            var path = 'public/product_images/' + id + '/' + imageFile;
-
-                            productImage.mv(path, function (err) {
-                                return console.log(err);
-                            });
-
+                            if(oldImage) {                                
+                                addAndRemoveImage('delete', oldImage)
+                            }                            
+                            addAndRemoveImage('add', imageFile, productImage, req, res);                                                        
                         }
 
                         req.flash('success', 'Product edited!');
@@ -280,55 +256,6 @@ router.post('/edit-product/:id', function (req, res) {
 
 });
 
-/*
- * POST product gallery
- */
-router.post('/product-gallery/:id', function (req, res) {
-
-    var productImage = req.files.file;
-    var id = req.params.id;
-    var path = 'public/product_images/' + id + '/gallery/' + req.files.file.name;
-    var thumbsPath = 'public/product_images/' + id + '/gallery/thumbs/' + req.files.file.name;
-
-    productImage.mv(path, function (err) {
-        if (err)
-            console.log(err);
-
-        resizeImg(fs.readFileSync(path), {width: 100, height: 100}).then(function (buf) {
-            fs.writeFileSync(thumbsPath, buf);
-        });
-    });
-
-    res.sendStatus(200);
-
-});
-
-
-/*
- * GET delete image
- */
-
-router.get('/delete-image/:image', isAdmin, function (req, res) {
-
-    var originalImage = 'public/product_images/' + req.query.id + '/gallery/' + req.params.image;
-    var thumbImage = 'public/product_images/' + req.query.id + '/gallery/thumbs/' + req.params.image;
-
-    fs.remove(originalImage, function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            fs.remove(thumbImage, function (err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    req.flash('success', 'Image deleted!');
-                    res.redirect('/admin/products/edit-product/' + req.query.id);
-                }
-            });
-        }
-    });
-});
-
 
 /*
  * GET delete product
@@ -339,17 +266,15 @@ router.get('/delete-product/:id', isAdmin, function (req, res) {
     var id = req.params.id;
     var path = 'public/product_images/' + id;
 
-    fs.remove(path, function (err) {
-        if (err) {
+    Product.findByIdAndRemove(id, function (err, p) {
+        if(err) {
             console.log(err);
-        } else {
-            Product.findByIdAndRemove(id, function (err) {
-                console.log(err);
-            });
-            
-            req.flash('success', 'Product deleted!');
-            res.redirect('/admin/products');
+        }else {
+            addAndRemoveImage('delete', p.image);            
         }
+
+        req.flash('success', 'Product deleted!');
+        res.redirect('/admin/products');
     });
 
 });
@@ -358,3 +283,17 @@ router.get('/delete-product/:id', isAdmin, function (req, res) {
 module.exports = router;
 
 
+
+function addAndRemoveImage(type, imageKey, productImage, req, res) {
+    if(type === 'add') {
+        var data = { Key: imageKey, ContentType: 'image', Body: productImage.data };
+        s3Bucket.putObject(data, function (err, data) {
+            if (err) return console.log('Error uploading data: ', data);           
+        });
+
+    }else {
+        s3Bucket.deleteObject({ Key: imageKey },function (err,data){
+              if(err) return console.log('Error deleting image');              
+          })
+    }
+}
