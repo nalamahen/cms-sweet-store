@@ -4,12 +4,16 @@ var mkdirp = require('mkdirp');
 var fs = require('fs-extra');
 var resizeImg = require('resize-img');
 var auth = require('../config/auth');
+var keys = require('../config/keys');
 var paths = require('../config/paths');
 var isAdmin = auth.isAdmin;
 
 var AWS = require('aws-sdk');
+//AWS.config.loadFromPath('./config/upload.json');
+AWS.config.accessKeyId = keys.accessKeyId;
+AWS.config.secretAccessKey = keys.secretAccessKey;
+AWS.config.region = keys.region;
 
-AWS.config.loadFromPath('./config/upload.json');
 var imageBucket = 'sweet-product-images';
 var s3Bucket = new AWS.S3({params: {Bucket: imageBucket}}); 
 
