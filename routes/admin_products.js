@@ -62,7 +62,6 @@ router.get('/add-product', isAdmin, function (req, res) {
         });
     });
 
-
 });
 
 /*
