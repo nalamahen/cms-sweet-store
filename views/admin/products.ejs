@@ -2,6 +2,11 @@
 
 <h2 class="page-title">Products</h2>
 <a href="/admin/products/add-product" class="btn btn-primary">Add a new product</a>
+    <div class="admin-search">
+        <form method="post" action="/admin/products/search">
+        <input type="text" name="search" placeholder="Search.."><button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div> 
 <br><br>
 
 <% if (count > 0) { %>

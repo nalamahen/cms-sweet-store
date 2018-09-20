@@ -37,3 +37,7 @@ ul.gallery li {
 table.alignmiddle td {
     vertical-align: middle !important;
 }
+
+.admin-search {
+    float: right;
+}

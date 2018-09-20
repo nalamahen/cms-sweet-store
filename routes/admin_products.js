@@ -27,22 +27,35 @@ var Brand = require('../models/brand');
  * GET products index
  */
 router.get('/', isAdmin, function (req, res) {
-    var count;
-
-    Product.count(function (err, c) {
-        count = c;
-    });
-
+   
     Product.find(function (err, products) {
         res.render('admin/products', {
-            products: products,
-            //count: count
+            products: products,            
             count: products.length,
             productImageUrl: paths.s3ImageUrl
         });   
     });
 
 });
+
+
+router.post('/search', isAdmin, (req, res) => {
+    var searchText = req.body.search;    
+   
+    Product.find({"name" : {'$regex': new RegExp(searchText, "i")}, "instock":true} , (err, products) => {        
+        if(err) {
+            console.log(err);
+        }
+
+        res.render('admin/products', {
+            products: products,            
+            count: products.length,
+            productImageUrl: paths.s3ImageUrl
+        });   
+    });
+  
+});
+
 
 /*
  * GET add product
