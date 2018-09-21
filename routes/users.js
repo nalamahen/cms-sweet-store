@@ -39,7 +39,7 @@ router.post('/register', function (req, res) {
 
     var name = req.body.name;
     var email = req.body.email;
-    var telephone = req.body.telphone;
+    var telephone = req.body.telephone;
     var username = req.body.username;
     var password = req.body.password;
     var password2 = req.body.password2;
@@ -47,7 +47,7 @@ router.post('/register', function (req, res) {
     
     req.checkBody('name', 'Name is required!').notEmpty();
     req.checkBody('email', 'Email is required!').isEmail();
-    req.checkBody('telphone', 'Telephone number is required!').notEmpty();
+    req.checkBody('telephone', 'Telephone number is required!').notEmpty();
     req.checkBody('username', 'Username is required!').notEmpty();
     req.checkBody('password', 'Password is required!').notEmpty();
     req.checkBody('password2', 'Passwords do not match!').equals(password);
