@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer');
+var paths = require('../config/paths');
 
 
 // Get Product model
@@ -23,7 +24,7 @@ router.get('/add/:product', function (req, res) {
                 title: slug,
                 qty: 1,
                 price: parseFloat(p.price).toFixed(2),
-                image: '/product_images/' + p._id + '/' + p.image
+                image: paths.s3ImageUrl + '/' + p.image
             });
         } else {
             var cart = req.session.cart;
@@ -42,7 +43,7 @@ router.get('/add/:product', function (req, res) {
                     title: slug,
                     qty: 1,
                     price: parseFloat(p.price).toFixed(2),
-                    image: '/product_images/' + p._id + '/' + p.image
+                    image: paths.s3ImageUrl + '/' + p.image 
                 });
             }
         }
@@ -66,7 +67,7 @@ router.get('/checkout', function (req, res) {
     } else {
         res.render('checkout', {
             title: 'Checkout',
-            cart: req.session.cart
+            cart: req.session.cart            
         });
     }
 
