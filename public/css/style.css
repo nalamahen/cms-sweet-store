@@ -11,7 +11,7 @@ a.pa {
 }
 
 .col-md-4 {    
-    height: 425px;
+    height: 400px;
     border: dotted 1px #ccc;      
 }
 
@@ -100,7 +100,7 @@ table.alignmiddle td {
 }
 
 .navbar {
-     background:#513488
+     background:#6400aa;
 ;
 }
 
@@ -110,8 +110,8 @@ table.alignmiddle td {
 
 .btn-info {
     color: #FFF200;
-    background-color: #513488;
-    border-color: #513488;
+    background-color: #6400aa;
+    border-color: #6400aa;
 }
 
 .search input[type=text] {

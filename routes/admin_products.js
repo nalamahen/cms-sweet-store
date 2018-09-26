@@ -42,7 +42,7 @@ router.get('/', isAdmin, function (req, res) {
 router.post('/search', isAdmin, (req, res) => {
     var searchText = req.body.search;    
    
-    Product.find({"name" : {'$regex': new RegExp(searchText, "i")}, "instock":true} , (err, products) => {        
+    Product.find({"name" : {'$regex': new RegExp(searchText, "i")}} , (err, products) => {        
         if(err) {
             console.log(err);
         }

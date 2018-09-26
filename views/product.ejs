@@ -12,7 +12,7 @@
         <p>£<%= parseFloat(p.price).toFixed(2) %></p>
        <!-- Availability: <%if(p.instock) {%> <span class="inStock">In Stock</span> <%} else {%><span class="outOfStock">Out of Stock</span> <%}%> -->
         <% if (loggedIn) { %>
-        <p><a href="/cart/add/<%= p.slug %>">Add to cart</a></p>
+        <p><a class="btn btn-info" href="/cart/add/<%= p.slug %>">Add to cartt</a></p>
         <% } else {%>
         <p>Please login to purchase items.</p>
         <% } %>
