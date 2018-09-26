@@ -1,25 +1,7 @@
 <% include _layouts/header %>
 
 <% if (count > 0) { %>
-<div class="row products">
-    <% products.forEach(function(p){ %>
-        <div class="col-xs-12 col-md-4 p">
-            <a class="pa" href="/products/<%= p.brand %>/<%= p.slug %>">
-                <img class="pimage" src="<%= productImageUrl %>/<%= p.image %>" alt="">
-            </a>
-            <div class="product-info">
-                <h4><%= p.name %></h4>
-                <h4>£<%= parseFloat(p.price).toFixed(2) %></h4>
-                <% if (loggedIn) { %>                
-                <p><a class="btn btn-info" href="/cart/add/<%= p.slug %>">Add to cart</a>&nbsp;&nbsp;<a class="btn btn-danger" href="/products/<%= p.brand %>/<%= p.slug %>">View Details</a>  </p>
-                <% } else {%>
-                <p>Please login to purchase items.</p>
-                <% } %> 
-            </div>             
-        </div>
-    <% }); %>
-        
-</div>
+    <% include brand-products-component %>
 <% } else {%>
     <p>There are no products availabe for the brand.</p>
     <% }%>

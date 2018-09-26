@@ -16,7 +16,7 @@
                         Availability: <%if(p.instock) {%> <span class="inStock">In Stock</span> <%} else {%><span class="outOfStock">Out of Stock</span> <%}%>
                     </p>
                     -->
-                    <p><a class="btn btn-info" href="/cart/add/<%= p.slug %>">Add to cart</a>&nbsp;&nbsp;<a class="btn btn-danger vd" href="/products/<%= p.brand %>/<%= p.slug %>">View Details</a>  </p>
+                    <p><a href="/cart/add/<%= p.slug %>">Add to cart</a>&nbsp;&nbsp;<a class="vd" href="/products/<%= p.brand %>/<%= p.slug %>">View Details</a>  </p>
                     <% } else {%>
                     <p>Please login to purchase items.</p>
                     <% } %>

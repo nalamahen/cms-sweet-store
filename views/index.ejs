@@ -5,7 +5,12 @@
     <% include carousel %>
   </div>
 <%}%>
-
+  <br />
 <%- content %>
+<hr />
+
+<% if(title == 'Home') { %>
+  <% include brand-products-component %>
+<%}%>
 
 <% include _layouts/footer %>

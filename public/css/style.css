@@ -11,7 +11,7 @@ a.pa {
 }
 
 .col-md-4 {    
-    height: 400px;
+    height: 370px;
     border: dotted 1px #ccc;      
 }
 
@@ -129,6 +129,8 @@ h4.red {
 
 #myCarousel {
     height: 300px;
+    border: 8px solid purple;
+    padding: 5px;
 }
 
 .carousel-control {
