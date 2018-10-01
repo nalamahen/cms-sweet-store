@@ -26,7 +26,7 @@ router.get('/', function (req, res) {
                 count: products.length,                
                 productImageUrl: paths.s3ImageUrl
             });
-        }).limit(10);
+        }).limit(9);
         /*
         if (err)
             console.log(err);

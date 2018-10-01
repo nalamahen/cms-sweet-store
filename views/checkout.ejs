@@ -22,13 +22,12 @@
     <% total += +sub %>
     <tr>
         <td><img class="cpi" src="<%= product.image %>" alt=""></td>
-        <td><%= product.title %></td>
-        <td>£<%= product.price %></td>
-        <td><%= product.qty %></td>
-        <td>
-            <a class="btn btn-default" href="/cart/update/<%= product.title %>?action=add">+</a>&nbsp;
-            <a class="btn btn-default" href="/cart/update/<%= product.title %>?action=remove">-</a>&nbsp;
-            <a href="/cart/update/<%= product.title %>?action=clear">Clear</a>&nbsp;
+        <td class="product-title"><%= product.title %></td>
+        <td class="product-price">£<%= product.price %></td>        
+        <td class="product-quantity">
+            <input type="number" class="quantity" value=<%= product.qty %>></td>
+        <td>            
+            <a class="btn btn-danger" href="/cart/update/<%= product.title %>?action=clear">remove</a>&nbsp;
         </td>
         <td>£<%= sub %></td>
     </tr>
@@ -68,9 +67,22 @@
 <% } %>
 
 <script>
+
+function updateQunatity(quantityInput) {   
+    var productRow = $(quantityInput).parent().parent();
+    var productTitle = productRow.children('.product-title').text();
+    var productQuantity = quantityInput.value;
+    var redirectUrl = '/cart/update/'+ productTitle + '?action=update&qty='+ productQuantity;
+    
+    window.location.href = redirectUrl;
+}
     
 $(function() {
-   
+    
+    $('.product-quantity input').change( function() {
+        updateQunatity(this);
+    });
+
     $('a.clearcart').on('click', function () {
         if (!confirm('Confirm clear cart'))
             return false;

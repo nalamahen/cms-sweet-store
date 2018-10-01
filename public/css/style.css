@@ -155,3 +155,6 @@ h4.red {
 .carousel-control.left, .carousel-control.right {
     background-image: none;    
 }
+
+/* checkout input style */
+.quantity { width: 50px;}

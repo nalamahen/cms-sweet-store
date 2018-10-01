@@ -82,22 +82,18 @@ router.get('/update/:product', function (req, res) {
     var slug = req.params.product;
     var cart = req.session.cart;
     var action = req.query.action;
+    var quantity = req.query.qty;
 
     for (var i = 0; i < cart.length; i++) {
         if (cart[i].title == slug) {
-            switch (action) {
-                case "add":
-                    cart[i].qty++;
-                    break;
-                case "remove":
-                    cart[i].qty--;
-                    if (cart[i].qty < 1)
-                        cart.splice(i, 1);
-                    break;
+            switch (action) {                
                 case "clear":
                     cart.splice(i, 1);
                     if (cart.length == 0)
                         delete req.session.cart;
+                    break;
+                case "update":
+                    cart[i].qty = quantity;
                     break;
                 default:
                     console.log('update problem');

@@ -23,6 +23,7 @@
     "express-fileupload": "^0.4.0",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
+    "express-toastr": "^2.0.2",
     "express-validator": "^5.2.0",
     "fs-extra": "^6.0.1",
     "mkdirp": "^0.5.1",
