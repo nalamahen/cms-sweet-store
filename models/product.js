@@ -30,6 +30,9 @@ var ProductSchema = mongoose.Schema({
     },
     vat: {
         type: Boolean
+    },
+    product_code: {
+        type: String
     }
     
 });

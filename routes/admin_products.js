@@ -65,13 +65,15 @@ router.get('/add-product', isAdmin, function (req, res) {
     var name = "";
     var desc = "";
     var price = "";
+    var product_code = "";
 
     Brand.find(function (err, brands) {
         res.render('admin/add_product', {
             name: name,
             desc: desc,
             brands: brands,
-            price: price
+            price: price,
+            product_code: product_code
         });
     });
 
@@ -95,6 +97,7 @@ router.post('/add-product', function (req, res) {
     var desc = req.body.desc;
     var price = req.body.price;
     var brand = req.body.brand;
+    var product_code= req.body.product_code;
 
     var errors = req.validationErrors();
 
@@ -106,7 +109,8 @@ router.post('/add-product', function (req, res) {
                 brand: brand,
                 desc: desc,
                 brands: brands,
-                price: price
+                price: price,
+                product_code: product_code
             });
         });
     } else {
@@ -118,7 +122,8 @@ router.post('/add-product', function (req, res) {
                         name: name,
                         desc: desc,
                         brands: brands,
-                        price: price
+                        price: price,
+                        product_code: product_code
                     });
                 });
             } else {
@@ -133,7 +138,8 @@ router.post('/add-product', function (req, res) {
                     brand: brand,
                     image: imageFile,
                     instock: true,
-                    vat: true
+                    vat: true,
+                    product_code: product_code
                 });
 
                 product.save(function (err) {
@@ -185,6 +191,7 @@ router.get('/edit-product/:id', isAdmin, function (req, res) {
                     productImageUrl: paths.s3ImageUrl,                 
                     instock: p.instock,
                     vat: p.vat,
+                    product_code: p.product_code == 'undefined' ? "" : p.product_code,
                     id: p._id
                 });                
             }
@@ -217,7 +224,9 @@ router.post('/edit-product/:id', function (req, res) {
     var brand = req.body.brand;
     var pimage = req.body.pimage;
     var instock = req.body.instock;
-    var id = req.params.id;    
+    var vat = req.body.vat;
+    var id = req.params.id; 
+    var product_code = req.body.product_code;   
 
     var errors = req.validationErrors();
 
@@ -247,7 +256,9 @@ router.post('/edit-product/:id', function (req, res) {
                     if (imageFile != "") {
                         p.image = imageFile;
                     }
-                    p.instock = instock == 'on' ? true: false;
+                    p.instock = instock == 'on' ? true : false;
+                    p.vat = vat == 'on' ? true : false;
+                    p.product_code = product_code;
 
                     p.save(function (err) {
                         var productImage = req.files.image;
