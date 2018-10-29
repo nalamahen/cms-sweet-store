@@ -14,7 +14,6 @@ var Brand = require('../models/brand');
  * GET all products
  */
 router.get('/', function (req, res) {
-//router.get('/', isUser, function (req, res) {
     var loggedIn = (req.isAuthenticated()) ? true : false;
     
     Product.find({instock:true}, function (err, products) {

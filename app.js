@@ -55,6 +55,18 @@ Brand.find(function (err, brands) {
     }
 });
 
+// Get Category model;
+var Category = require('./models/category');
+
+// Get all categories to pass to sitenav.ejs
+Category.find(function (err, categories) {
+    if (err) {
+        console.log(err);
+    } else {
+        app.locals.categories = categories;
+    }
+});
+
 // Express fileUpload middleware
 app.use(fileUpload());
 
@@ -139,10 +151,12 @@ var cart = require('./routes/cart.js');
 var users = require('./routes/users.js');
 var adminPages = require('./routes/admin_pages.js');
 var adminBrands = require('./routes/admin_brands.js');
+var adminCategories = require('./routes/admin_categories.js');
 var adminProducts = require('./routes/admin_products.js');
 
 app.use('/admin/pages', adminPages);
 app.use('/admin/brands', adminBrands);
+app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
 app.use('/products', products);
 app.use('/cart', cart);

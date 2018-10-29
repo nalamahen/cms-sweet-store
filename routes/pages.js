@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
     var loggedIn = (req.isAuthenticated()) ? true : false;
     Page.findOne({slug: 'home'}, function (err, page) {
 
-        Product.find({brand: 'jelly-belly', instock: true}, function (err, products) {
+        Product.find({featured: true, instock: true}, function (err, products) {
             if (err)
                 console.log(err);
 
@@ -26,7 +26,7 @@ router.get('/', function (req, res) {
                 count: products.length,                
                 productImageUrl: paths.s3ImageUrl
             });
-        }).limit(9);
+        });
         /*
         if (err)
             console.log(err);

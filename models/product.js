@@ -33,6 +33,9 @@ var ProductSchema = mongoose.Schema({
     },
     product_code: {
         type: String
+    }, 
+    featured: {
+        type: Boolean
     }
     
 });

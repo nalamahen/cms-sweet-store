@@ -49,7 +49,7 @@ router.get('/add/:product', function (req, res) {
         }
 
         //console.log(req.session.cart);
-        req.flash('success', 'Product added!');
+        //req.flash('success', 'Product added!');
         res.redirect('back');
     });
 
@@ -103,7 +103,7 @@ router.get('/update/:product', function (req, res) {
         }
     }
 
-    req.flash('success', 'Cart updated!');
+    //req.flash('success', 'Cart updated!');
     res.redirect('/cart/checkout');
 
 });

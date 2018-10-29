@@ -41,3 +41,8 @@ table.alignmiddle td {
 .admin-search {
     float: right;
 }
+
+.admin-search input[type="text"] {
+    height: 28px !important;
+    width: 110px;
+}

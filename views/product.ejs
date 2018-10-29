@@ -1,22 +1,27 @@
 <% include _layouts/header %>
 
-<div class="row">     
-    <h1 class="page-header"><%= p.name %></h1>
+<div class="container main-container headerOffset">    
+    <!--left column-->
+    <div class="col-lg-3 col-md-3 col-sm-12">
+            <% include _layouts/sitenav.ejs %>
+        </div>
+        <h1 class="page-header"><%= p.name %></h1>
+        
     
-    <div class="col-xs-12 col-md-5">
-        <img class="spi" src="<%= productImageUrl %>/<%= p.image %>" alt="">
-        <br>
-    </div>
-     <div class="col-xs-12 col-md-7">
-        <p><%= p.desc %></p>
-        <p>£<%= parseFloat(p.price).toFixed(2) %></p>
-       <!-- Availability: <%if(p.instock) {%> <span class="inStock">In Stock</span> <%} else {%><span class="outOfStock">Out of Stock</span> <%}%> -->
-        <% if (loggedIn) { %>
-        <p><a class="btn btn-info" href="/cart/add/<%= p.slug %>">Add to cartt</a></p>
-        <% } else {%>
-        <p>Please login to purchase items.</p>
-        <% } %>
-    </div>   
+        <div class="col-xs-12 col-md-5">
+            <img class="spi" src="<%= productImageUrl %>/<%= p.image %>" alt="">
+            <br>
+        </div>
+         <div class="col-xs-12 col-md-7">
+            <p><%= p.desc %></p>
+            <p>£<%= parseFloat(p.price).toFixed(2) %></p>       
+            <% if (loggedIn) { %>
+            <p><a class="btn btn-info" href="/cart/add/<%= p.slug %>">Add to cartt</a></p>
+            <% } else {%>
+            <p>Please login to purchase items.</p>
+            <% } %>
+        </div>   
+    
 </div>
 
 <% include _layouts/footer %>

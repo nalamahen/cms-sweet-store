@@ -1,32 +1,54 @@
 <% include _layouts/header %>
 
-<% if (count > 0) { %>
-<div class="row products">  
-    <% products.forEach(function(p){ %>
-            <div class="col-xs-12 col-md-4 p">
-                <a class="pa" href="/products/<%= p.brand %>/<%= p.slug %>">
-                    <img class="pimage" src="<%= productImageUrl %>/<%= p.image %>" alt="">
-                </a>
-                <div class="product-info">
-                    <h5><%= p.name %></h4>
-                    <h5>£<%= parseFloat(p.price).toFixed(2) %></h4>
-                    <% if (loggedIn) { %>
-                    <!--
-                    <p>
-                        Availability: <%if(p.instock) {%> <span class="inStock">In Stock</span> <%} else {%><span class="outOfStock">Out of Stock</span> <%}%>
-                    </p>
-                    -->
-                    <p><a href="/cart/add/<%= p.slug %>">Add to cart</a>&nbsp;&nbsp;<a class="vd" href="/products/<%= p.brand %>/<%= p.slug %>">View Details</a>  </p>
-                    <% } else {%>
-                    <p>Please login to purchase items.</p>
-                    <% } %>
-                </div>               
-            </div>       
-        <% }); %>
-    
+<div class="container main-container headerOffset">
+
+    <!-- Main component call to action -->
+
+    <div class="row">
+
+        <!--left column-->
+
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <% include _layouts/sitenav.ejs %>
+        </div>
+
+        <!--right column-->
+        <div class="col-lg-9 col-md-9 col-sm-12">
+
+            <div class="row  categoryProduct xsResponse clearfix">                
+                <!--/ .item-->
+                 
+                <% if (count > 0) { %>
+                    <% products.forEach(function(p){ %>
+                    <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
+                        <div class="product">                        
+                            <div class="image">                            
+                                <a href="/products/<%= p.brand %>/<%= p.slug %>"><img src="<%= productImageUrl %>/<%= p.image %>" alt="" class="img-responsive"></a>                           
+                            </div>
+                            <div class="description">
+                                <h4><%= p.name %></h4>                   
+                            </div>
+                            <div class="price"><span>£<%= parseFloat(p.price).toFixed(2) %></span></div>
+                            <% if (loggedIn) { %>
+                            <div class="action-control"><a href="/cart/add/<%= p.slug %>" class="btn btn-primary"> <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i> Add to cart </span> </a></div>
+                            <% } else {%>
+                            <p>Please login to purchase items.</p>
+                            <% } %>
+                        </div>
+                    </div>
+                    <% }); %>
+                <% } else {%>
+                <p>No products available for your search. Please search again with different words.</p>
+                <% }%>
+
+                
+                <!--/.item-->                                             
+            </div>                      
+        </div>
+        <!--/right column end-->
+    </div>
+    <!-- /.row  -->
 </div>
-<% } else {%>
-<p>No products available for your search. Please search again with different words.</p>
-<% }%>
+<!-- /main container -->
 
 <% include _layouts/footer %>

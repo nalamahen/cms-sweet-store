@@ -1,39 +1,58 @@
 <% include _layouts/header %>
 
-<h1><%= title %></h1>
+    <!-- Main component call to action -->
+    <div class="container main-container headerOffset">
+        <div class="row">
 
-<form method="post" action="/users/register">
+            <!--left column-->
 
-    <div class="form-group">
-        <label>Name</label>
-        <input type="text" name="name" class="form-control" placeholder="Name">
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <% include _layouts/sitenav.ejs %>
+            </div>
+
+            <!--right column-->
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                <h1><%= title %></h1>
+
+                    <form method="post" action="/users/register">
+
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" name="email" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label>Telephone</label>
+                            <input type="text" name="telephone" class="form-control" placeholder="Telephone">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" class="form-control" placeholder="Username">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Password">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" name="password2" class="form-control" placeholder="Confirm Password">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+
+            </div>
+            <!--/right column end-->
+        </div>
+        <!-- /.row  -->
     </div>
+    <!-- /main container -->
 
-    <div class="form-group">
-        <label>Email</label>
-        <input type="text" name="email" class="form-control" placeholder="Email">
-    </div>
-    <div class="form-group">
-        <label>Telephone</label>
-        <input type="text" name="telephone" class="form-control" placeholder="Telephone">
-    </div>    
-    
-    <div class="form-group">
-        <label>Username</label>
-        <input type="text" name="username" class="form-control" placeholder="Username">
-    </div>
-
-    <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" class="form-control"  placeholder="Password">
-    </div>
-    
-    <div class="form-group">
-        <label>Confirm Password</label>
-        <input type="password" name="password2" class="form-control"  placeholder="Confirm Password">
-    </div>
-
-    <button type="submit" class="btn btn-default">Register</button>
-</form>
-
-<% include _layouts/footer %>
+    <% include _layouts/footer %>

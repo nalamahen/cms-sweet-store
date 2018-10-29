@@ -11,37 +11,41 @@
 
 <% if (count > 0) { %>
 
-<table class="table table-striped alignmiddle">
+<div class="col-xs-12 col-sm-12">
+    <div class="cartContent w100">
+        <table class="cartTable table-responsive">
+            <tbody>
 
-    <thead>
-        <tr class="home">
-            <th>Product</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Product Image</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% products.forEach(function(product){ %>
-        <tr>
-            <td><%= product.name %></td>
-            <td>£<%= parseFloat(product.price).toFixed(2) %></td>
-            <td><%= product.category %></td>
-            <td>
-                <% if (product.image == "") { %>
-                <img id="noimage" src="/images/noimage.png">
-                <% } else {%>
-                <img id="noimage" src="<%=productImageUrl %>/<%= product.image %>">
-                <% }%>
-            </td>
-            <td><a href="/admin/products/edit-product/<%= product._id %>">Edit</a></td>
-            <td><a class="confirmDeletion" href="/admin/products/delete-product/<%= product._id %>">Delete</a></td>
-        </tr>
-        <% }); %>
-    </tbody>
-</table>
+                <tr class="CartProduct cartTableHeader">
+                    <td style="width:30%">Product</td>
+                    <td style="width:30%">Price</td>                                       
+                    <td style="width:40%">Image</td>     
+                    <td style="width:20%">Edit</td>                                   
+                    <td style="width:20%">Delete</td>
+                </tr>
+
+                <% products.forEach(function(product){ %>
+                <tr class="CartProduct">
+                    <td><%= product.name %></td>    
+                    <td>£<%= parseFloat(product.price).toFixed(2) %></td>                   
+                    <td class="CartProductThumb">
+                        <div>                                                                              
+                            <% if (product.image == "") { %>
+                            <img id="noimage" src="/images/noimage.png">
+                            <% } else {%>
+                            <img id="noimage" src="<%=productImageUrl %>/<%= product.image %>">
+                            <% }%>                                             
+                        </div>
+                    </td>
+                    <td><a href="/admin/products/edit-product/<%= product._id %>">Edit</a></td>
+                    <td><a class="confirmDeletion" href="/admin/products/delete-product/<%= product._id %>">Delete</a></td>
+                </tr>
+                <% }); %>                
+            </tbody>
+        </table>
+    </div>    
+</div>
+<!--Content-->
 
 <% } else {%>
 <h3 class="text-center">There are no products.</h3>

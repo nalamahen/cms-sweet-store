@@ -1,105 +1,142 @@
 <% include _layouts/header %>
 
-<% if (typeof cart !== "undefined") { %>
+    <div class="container main-container headerOffset">        
 
-<h1 class="page-title">My Cart</h1>
-<br><br>
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6 col-xxs-12 text-center-xs">
+                <h1 class="section-title-inner">
+                    <span>
+                        <i class="glyphicon glyphicon-shopping-cart"></i> Shopping cart </span>
+                </h1>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-5 rightSidebar col-xs-6 col-xxs-12 text-center-xs">
+                <h4 class="caps">
+                    <a href="/products">
+                        <i class="fa fa-chevron-left"></i> Back to shopping </a>
+                </h4>
+            </div>
+        </div>
+        <!--/.row-->
 
-<table class="table table-striped alignmiddle">
-    
-    <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th></th>
-        <th>Subtotal</th>
-    </tr>
-    
-    <% var total = 0; %>
-    <% cart.forEach(function(product){ %>
-    <% var sub = parseFloat(product.qty * product.price).toFixed(2) %>
-    <% total += +sub %>
-    <tr>
-        <td><img class="cpi" src="<%= product.image %>" alt=""></td>
-        <td class="product-title"><%= product.title %></td>
-        <td class="product-price">£<%= product.price %></td>        
-        <td class="product-quantity">
-            <input type="number" class="quantity" value=<%= product.qty %>></td>
-        <td>            
-            <a class="btn btn-danger" href="/cart/update/<%= product.title %>?action=clear">remove</a>&nbsp;
-        </td>
-        <td>£<%= sub %></td>
-    </tr>
-    <% }); %>
-    <tr>
-        <td colspan="6" align="right"><b>Total: </b> £<%= parseFloat(total).toFixed(2) %></td>
-    </tr>
-    <tr>
-        <td colspan="5" align="right">
-            <a class="clearcart btn btn-danger" href="/cart/clear">Clear cart</a>
-        </td>
-        <td colspan="5" align="right">
-            <a class="btn btn-primary buynow" href="/cart/buynow">Buy now</a>
-        </td>
-    </tr>
-    
-</table>
+        <% if (typeof cart !== "undefined") { %>
+        <div class="row">
+            <div class="col-lg-12 col-md-9 col-sm-7">
+                <div class="row userInfo">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="cartContent w100">
+                            <table class="cartTable table-responsive">
+                                <tbody>
 
-<form class="pp" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-<input type="hidden" name="cmd" value="_cart">
-<input type="hidden" name="upload" value="1">
-<input type="hidden" name="business" value="jultranet-facilitator@gmail.com">
-<% var num = 0; %>
-<% cart.forEach(function(p){ %>
-    <% num++ %>
-    <input type="hidden" name="item_name_<%= num %>" value="<%= p.title %>">
-    <input type="hidden" name="amount_<%= num %>" value="<%= p.price %>">
-    <input type="hidden" name="quantity_<%= num %>" value="<%= p.qty %>">
-<% }); %>
-<input type="hidden" name="currency_code" value="USD">
-<input type="hidden" name="amount" value="<%= total %>">
-<input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
-</form>
+                                    <tr class="CartProduct cartTableHeader">
+                                        <td style="width:15%">&nbsp;</td>
+                                        <td style="width:40%">Name</td>
+                                        <td style="width:40%">Price</td>
+                                        <td style="width:20%">Quantity</td>
+                                        <td style="width:10%" class="delete">&nbsp;</td>                                        
+                                        <td style="width:20%">Subtotal</td>
+                                    </tr>
 
-<% } else {%>
-<h3 class="text-center">Your cart is empty.</h3>
-<% } %>
+                                    <% var total = 0; %>
+                                    <% cart.forEach(function(product){ %>
+                                    <% var sub = parseFloat(product.qty * product.price).toFixed(2) %>
+                                    <% total += +sub %>
+                                                                            
+                                    <tr class="CartProduct">
+                                        <td class="CartProductThumb">
+                                            <div>                                                
+                                                <img class="cpi" src="<%= product.image %>" alt="img">                                               
+                                            </div>
+                                        </td>
+                                        <td class="product-name"><%= product.title %></td>
+                                        <td class="price">£<%= product.price %></td>
+                                        <td class="product-quantity">
+                                            <input type="number" class="quantity" value=<%= product.qty %>>
+                                        </td>                                        
+                                        <td class="delete">
+                                            <a href="/cart/update/<%= product.title %>?action=clear">
+                                                <i class="glyphicon glyphicon-trash fa-2x"></i>
+                                            </a>
+                                        </td>
+                                        <td class="price">£<%= sub %></td>
+                                    </tr>
+                                    <% }); %>
+                                    <tr>
+                                        <td colspan="6" align="right"  class="price"><b>Total: </b> £<%= parseFloat(total).toFixed(2) %></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="checkout-clear-buy-buttons" colspan="3" align="right">
+                                            <a class="clearcart btn btn-danger" href="/cart/clear">Clear cart</a>
+                                        </td>
+                                        <td class="checkout-clear-buy-buttons" colspan="3" align="right">
+                                            <a class="btn btn-primary buynow" href="/cart/buynow">Buy now</a>
+                                        </td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--cartContent-->
 
-<script>
+                        <div class="cartFooter w100">
+                            <div class="box-footer">
+                                <div class="pull-left">
+                                    <a href="/products" class="btn btn-default">
+                                        <i class="fa fa-arrow-left"></i> &nbsp; Continue shopping </a>
+                                </div>                                
+                            </div>
+                        </div>
+                        <!--/ cartFooter -->
 
-function updateQunatity(quantityInput) {   
-    var productRow = $(quantityInput).parent().parent();
-    var productTitle = productRow.children('.product-title').text();
-    var productQuantity = quantityInput.value;
-    var redirectUrl = '/cart/update/'+ productTitle + '?action=update&qty='+ productQuantity;
-    
-    window.location.href = redirectUrl;
-}
-    
-$(function() {
-    
-    $('.product-quantity input').change( function() {
-        updateQunatity(this);
-    });
+                    </div>
+                </div>
+                <!--/row end-->
 
-    $('a.clearcart').on('click', function () {
-        if (!confirm('Confirm clear cart'))
-            return false;
-    });
-    
-    /*
-    $('a.buynow').on('click', function (e) {
-        e.preventDefault();
-        
-        $.get('/cart/buynow', function() {
-            $('form.pp input[type=image]').click();
-            $('.ajaxbg').show();
+            </div>
+           
+
+        </div>
+        <!--/row-->
+        <% } else {%>
+        <h3 class="text-center">Your cart is empty.</h3>
+        <% } %>
+
+        <div style="clear:both"></div>
+    </div>
+    <!-- /.main-container -->
+
+    <script>
+
+        function updateQunatity(quantityInput) {
+            var productRow = $(quantityInput).parent().parent();
+            var productTitle = productRow.children('.product-name').text();
+            var productQuantity = quantityInput.value;
+            var redirectUrl = '/cart/update/' + productTitle + '?action=update&qty=' + productQuantity;
+
+            window.location.href = redirectUrl;
+        }
+
+        $(function () {
+            $('.product-quantity input').change(function () {
+                updateQunatity(this);
+            });
+
+            $('a.clearcart').on('click', function () {
+                if (!confirm('Confirm clear cart'))
+                    return false;
+            });
+
+            /*
+            $('a.buynow').on('click', function (e) {
+                e.preventDefault();
+                
+                $.get('/cart/buynow', function() {
+                    $('form.pp input[type=image]').click();
+                    $('.ajaxbg').show();
+                });
+            });
+            */
         });
-    });
-    */    
-});
-    
-</script>
 
-<% include _layouts/footer %>
+    </script>
+
+    <% include _layouts/footer %>

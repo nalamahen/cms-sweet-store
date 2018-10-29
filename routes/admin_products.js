@@ -139,7 +139,8 @@ router.post('/add-product', function (req, res) {
                     image: imageFile,
                     instock: true,
                     vat: true,
-                    product_code: product_code
+                    product_code: product_code,
+                    featured: false
                 });
 
                 product.save(function (err) {
@@ -191,6 +192,7 @@ router.get('/edit-product/:id', isAdmin, function (req, res) {
                     productImageUrl: paths.s3ImageUrl,                 
                     instock: p.instock,
                     vat: p.vat,
+                    featured: p.featured,
                     product_code: p.product_code == 'undefined' ? "" : p.product_code,
                     id: p._id
                 });                
@@ -225,6 +227,7 @@ router.post('/edit-product/:id', function (req, res) {
     var pimage = req.body.pimage;
     var instock = req.body.instock;
     var vat = req.body.vat;
+    var featured = req.body.featured;
     var id = req.params.id; 
     var product_code = req.body.product_code;   
 
@@ -258,6 +261,7 @@ router.post('/edit-product/:id', function (req, res) {
                     }
                     p.instock = instock == 'on' ? true : false;
                     p.vat = vat == 'on' ? true : false;
+                    p.featured = featured == 'on' ? true : false;
                     p.product_code = product_code;
 
                     p.save(function (err) {
@@ -308,8 +312,6 @@ router.get('/delete-product/:id', isAdmin, function (req, res) {
 
 // Exports
 module.exports = router;
-
-
 
 function addAndRemoveImage(type, imageKey, productImage, req, res) {
     if(type === 'add') {

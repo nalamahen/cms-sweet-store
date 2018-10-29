@@ -1,0 +1,46 @@
+<div class="panel-group" id="accordionNo">
+
+        <!-- Barnd -->
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" href="#collapseBrand"
+                                           class="collapseWill active ">
+                    <span class="pull-left"> <i class="fa fa-caret-right"></i></span> Brand </a></h4>
+                </div>
+                <div id="collapseBrand" class="panel-collapse collapse in">
+                    <div class="panel-body smoothscroll maxheight300">
+                        <ul class="nav nav-pills nav-stacked tree">
+                                <li><a href="/products">All products</a></li>                                  
+                                <% brands.forEach(function(brand){ %>
+                                    <li><a href="/products/<%= brand.slug %>"><%= brand.name %></a></li>
+                                <% }); %>
+                                                             
+                        </ul>
+                        <div class="block-element">
+                            <label> &nbsp; </label>
+                            <!-- keep it blank // -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/brand panel end-->                
+
+        <!--Category-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" href="#collapseCategory"
+                                           class="collapseWill active ">
+                    <span class="pull-left"> <i class="fa fa-caret-right"></i></span> Category </a></h4>
+            </div>
+            <div id="collapseCategory" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <ul class="nav nav-pills nav-stacked tree">
+                        <% categories.forEach(function(category){ %>
+                        <li><a href="#"><%= category.name %></li>                            
+                        <% }); %>                            
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--/Category menu end-->
+    </div>

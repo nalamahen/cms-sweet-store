@@ -1,9 +1,54 @@
-<% include _layouts/header %>
+    <% include _layouts/header %>
 
-<% if (count > 0) { %>
-    <% include brand-products-component %>
-<% } else {%>
-    <p>There are no products availabe for the brand.</p>
-    <% }%>
+    <div class="container main-container headerOffset">
+    
+        <!-- Main component call to action -->
+    
+        <div class="row">
+    
+            <!--left column-->
+    
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <% include _layouts/sitenav.ejs %>
+            </div>
+    
+            <!--right column-->
+            <div class="col-lg-9 col-md-9 col-sm-12">
+    
+                <div class="row  categoryProduct xsResponse clearfix">                
+                    <!--/ .item-->
+                     
+                    <% if (count > 0) { %>
+                        <% products.forEach(function(p){ %>
+                        <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
+                            <div class="product">                        
+                                <div class="image">                            
+                                    <a href="/products/<%= p.brand %>/<%= p.slug %>"><img src="<%= productImageUrl %>/<%= p.image %>" alt="" class="img-responsive"></a>                           
+                                </div>
+                                <div class="description">
+                                    <h4><%= p.name %></h4>                   
+                                </div>
+                                <div class="price"><span>£<%= parseFloat(p.price).toFixed(2) %></span></div>
+                                <% if (loggedIn) { %>
+                                <div class="action-control"><a href="/cart/add/<%= p.slug %>" class="btn btn-primary"> <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i> Add to cart </span> </a></div>
+                                <% } else {%>
+                                <p>Please login to purchase items.</p>
+                                <% } %>
+                            </div>
+                        </div>
+                        <% }); %>
+                    <% } else {%>
+                    <p>There are no products availabe for the brand.</p>
+                    <% }%>
+    
+                    
+                    <!--/.item-->                                             
+                </div>                      
+            </div>
+            <!--/right column end-->
+        </div>
+        <!-- /.row  -->
+    </div>
+    <!-- /main container -->
     
     <% include _layouts/footer %>
