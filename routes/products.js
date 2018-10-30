@@ -99,6 +99,7 @@ router.get('/:brand/:product', function (req, res) {
 
 });
 
+
 // Exports
 module.exports = router;
 

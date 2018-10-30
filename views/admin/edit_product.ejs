@@ -28,6 +28,20 @@
             <% }); %>
         </select>
     </div>
+
+    <div class="form-group">
+            <label for="">Category</label>
+            <select name="category" class="form-control">
+                <option value="">select category</option>
+                <% categories.forEach(function(cate){ %>
+                <option value="<%= cate.slug %>"
+                    <% if (cate.slug == category) { %>
+                    selected="selected"
+                    <% } %>        
+                ><%= cate.name %></option>
+            <% }); %>
+            </select>
+        </div>
     
     <div class="form-group">
         <label for="">Price</label>

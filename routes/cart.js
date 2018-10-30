@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer');
 var paths = require('../config/paths');
+var ses = require('node-ses');
+var keys = require('../config/keys');
+var client = ses.createClient({key: keys.accessKeyId, secret: keys.secretAccessKey});
 
 
 // Get Product model
@@ -49,7 +52,7 @@ router.get('/add/:product', function (req, res) {
         }
 
         //console.log(req.session.cart);
-        //req.flash('success', 'Product added!');
+        req.flash('success', 'Product added!');
         res.redirect('back');
     });
 
@@ -134,40 +137,31 @@ router.get('/buynow', function (req, res) {
     
     var total = 0;
     var subTotal = 0;
-    var emailBody = `<!DOCTYPE html><html><head><title>Bizza Candy - order confirmation</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head><body><p>Dear ${user.name}, <br/><br/>Your below order has been received and we will contact you for payment informaton.</p><table class="table table-striped alignmiddle"><tr><th>Name</th><th>Price</th><th>Quantity</th><th>&nbsp;</th></tr>`;
+    var emailBody = `<!DOCTYPE html><html><head><title>Bizza Candy - order confirmation</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head><body><p>Dear ${user.name}, <br/><br/>Your below order has been received and we will contact you for payment details.</p><table class="table table-striped alignmiddle"><tr><th>Name</th><th>Price</th><th>Quantity</th><th>Sub Total</th></tr>`;
     cartDetails.forEach((product) => {
         subTotal = parseFloat(product.qty * product.price).toFixed(2);
-        emailBody += `<tr><td>${product.title}</td><td>${product.price}</td><td>${product.qty}</td><td>${subTotal}</td>`;
+        emailBody += `<tr><td>${product.title}</td><td>£${product.price}</td><td>${product.qty}</td><td>£${subTotal}</td>`;
         total += +subTotal;
     });
 
-    emailBody += `<tr><td colspan="6" align="right"><b>Total: </b> £${parseFloat(total).toFixed(2)}</td></tr></table><br/><br/> Regards,<br>bizzacandy.com</body></html>`;
+    emailBody += `<tr><td>&nbsp;</td><td>&nbsp;</td><td align="right"><b>Total:</b></td><td><b>£${parseFloat(total).toFixed(2)}</b></td></tr></table><br/><br/> Regards,<br>bizzacandy.com</body></html>`;
 
     delete req.session.cart;
 
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'mail2nalamahen@gmail.com',
-            pass: '02me1966'
-        }
-    });
-
-    var mailOptions = {
-        from: 'mail2nalamahen@gmail.com',
-        to: 'mail2mahen@yahoo.co.uk',
+    client.sendemail({
+        to: user.email,
+        from: 'mail2nalamahen@gmail.com', 
         subject: 'Thank you for your order',
-       html: emailBody
-    };
-
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-            res.redirect('/cart/order');
+        message: emailBody,
+        altText: 'plain text',
+    }, function(err, data, response) {
+        if(err) {
+            console.log(err);
+        }else {
+            console.log('Email sent to: ', user.email);
         }
     });
+
 
     //res.sendStatus(200);
     res.redirect('/cart/order');

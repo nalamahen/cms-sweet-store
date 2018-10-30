@@ -99,6 +99,24 @@ img.cpi {
     padding: 5px;
 }
 
+.brand-box {
+    border: solid 1px #ddd;
+    border-radius: 5px;
+    height: 115px;
+    padding: 1px
+}
+
+.brand-box img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.brand-box:hover {
+    border: 1px solid #4ec67f;
+  }
+
 /* google webfont */
 
 /* =============================================================== */
@@ -995,7 +1013,8 @@ legend {
 }
 
 .search-close {
-    background: rgba(0, 0, 0, 0.3);
+    /*background: rgba(0, 0, 0, 0.3);*/
+    background: #FFF;
     display: table;
     float: right;
     font-size: 32px;

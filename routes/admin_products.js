@@ -23,6 +23,9 @@ var Product = require('../models/product');
 // Get Brand model
 var Brand = require('../models/brand');
 
+// Get Category model
+var Category = require('../models/category');
+
 /*
  * GET products index
  */
@@ -68,13 +71,17 @@ router.get('/add-product', isAdmin, function (req, res) {
     var product_code = "";
 
     Brand.find(function (err, brands) {
-        res.render('admin/add_product', {
-            name: name,
-            desc: desc,
-            brands: brands,
-            price: price,
-            product_code: product_code
+        Category.find(function(err, categories) {
+            res.render('admin/add_product', {
+                name: name,
+                desc: desc,
+                brands: brands,
+                categories: categories,
+                price: price,
+                product_code: product_code
+            });
         });
+
     });
 
 });
@@ -97,20 +104,24 @@ router.post('/add-product', function (req, res) {
     var desc = req.body.desc;
     var price = req.body.price;
     var brand = req.body.brand;
+    var category = req.body.category;
     var product_code= req.body.product_code;
 
     var errors = req.validationErrors();
 
     if (errors) {
         Brand.find(function (err, brands) {
-            res.render('admin/add_product', {
-                errors: errors,
-                name: name,
-                brand: brand,
-                desc: desc,
-                brands: brands,
-                price: price,
-                product_code: product_code
+            Category.find(function(err, categories) {
+                res.render('admin/add_product', {
+                    errors: errors,
+                    name: name,
+                    brand: brand,
+                    desc: desc,
+                    brands: brands,
+                    price: price,
+                    product_code: product_code,
+                    categories: categories
+                });
             });
         });
     } else {
@@ -118,12 +129,15 @@ router.post('/add-product', function (req, res) {
             if (product) {
                 req.flash('danger', 'Product name exists, choose another.');
                 Brand.find(function (err, brands) {
-                    res.render('admin/add_product', {
-                        name: name,
-                        desc: desc,
-                        brands: brands,
-                        price: price,
-                        product_code: product_code
+                    Category.find(function(err, categories) {
+                        res.render('admin/add_product', {
+                            name: name,
+                            desc: desc,
+                            brands: brands,
+                            price: price,
+                            product_code: product_code,
+                            categories: categories
+                        });
                     });
                 });
             } else {
@@ -140,7 +154,8 @@ router.post('/add-product', function (req, res) {
                     instock: true,
                     vat: true,
                     product_code: product_code,
-                    featured: false
+                    featured: false,
+                    category: category
                 });
 
                 product.save(function (err) {
@@ -176,28 +191,34 @@ router.get('/edit-product/:id', isAdmin, function (req, res) {
 
     Brand.find(function (err, brands) {
 
-        Product.findById(req.params.id, function (err, p) {
-            if (err) {
-                console.log(err);
-                res.redirect('/admin/products');
-            } else {                
-                res.render('admin/edit_product', {
-                    name: p.name,
-                    errors: errors,
-                    desc: p.desc,
-                    brands: brands,
-                    brand: p.brand.replace(/\s+/g, '-').toLowerCase(),
-                    price: parseFloat(p.price).toFixed(2),
-                    image: p.image,  
-                    productImageUrl: paths.s3ImageUrl,                 
-                    instock: p.instock,
-                    vat: p.vat,
-                    featured: p.featured,
-                    product_code: p.product_code == 'undefined' ? "" : p.product_code,
-                    id: p._id
-                });                
-            }
+        Category.find(function(err, categories){
+
+            Product.findById(req.params.id, function (err, p) {
+                if (err) {
+                    console.log(err);
+                    res.redirect('/admin/products');
+                } else {                
+                    res.render('admin/edit_product', {
+                        name: p.name,
+                        errors: errors,
+                        desc: p.desc,
+                        brands: brands,
+                        brand: p.brand.replace(/\s+/g, '-').toLowerCase(),
+                        price: parseFloat(p.price).toFixed(2),
+                        image: p.image,  
+                        productImageUrl: paths.s3ImageUrl,                 
+                        instock: p.instock,
+                        vat: p.vat,
+                        featured: p.featured,
+                        product_code: p.product_code == 'undefined' ? "" : p.product_code,
+                        id: p._id,
+                        category: p.category == 'undefined' ? "" : p.category,
+                        categories: categories
+                    });                
+                }
+            });
         });
+
 
     });
 
@@ -230,6 +251,7 @@ router.post('/edit-product/:id', function (req, res) {
     var featured = req.body.featured;
     var id = req.params.id; 
     var product_code = req.body.product_code;   
+    var category = req.body.category;
 
     var errors = req.validationErrors();
 
@@ -263,6 +285,7 @@ router.post('/edit-product/:id', function (req, res) {
                     p.vat = vat == 'on' ? true : false;
                     p.featured = featured == 'on' ? true : false;
                     p.product_code = product_code;
+                    p.category = category;
 
                     p.save(function (err) {
                         var productImage = req.files.image;

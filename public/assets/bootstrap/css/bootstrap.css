@@ -2599,6 +2599,7 @@ textarea.form-control {
 }
 input[type="search"] {
   -webkit-appearance: none;
+  border: solid 1px #FFF;
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input[type="date"].form-control,
