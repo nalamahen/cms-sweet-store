@@ -2145,6 +2145,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
     background: #ebebeb;
     color:#454545 !important;
     padding: 15px 0 0;
+    border-radius: 5px;
 }
 
 .home-intro h2 span {
