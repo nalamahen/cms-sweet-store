@@ -2131,7 +2131,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 
 .home-intro h2 {
     font-size: 20px;
-    font-weight: 200;
+    /*font-weight: 200;*/
     letter-spacing: 2px;
     text-align: center;
     text-transform: uppercase;
@@ -2142,8 +2142,8 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 }
 
 .home-intro {
-    background: #34373b;
-    color: #fff;
+    background: #ebebeb;
+    color:#454545 !important;
     padding: 15px 0 0;
 }
 
@@ -2152,7 +2152,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 }
 
 .sectionCategory {
-    background: #34373b;
+    background: #ebebeb;    
     padding: 10px 0;
     position: relative;
 }
@@ -2171,6 +2171,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 .sectionCategoryIntro h1 {
     font-family: Oswald;
     font-size: 22px;
+    color: #454545;
     font-weight: lighter;
     letter-spacing: 2px;
     margin-bottom: 0;

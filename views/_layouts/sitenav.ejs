@@ -37,7 +37,7 @@
                 <div class="panel-body">
                     <ul class="nav nav-pills nav-stacked tree">
                         <% categories.forEach(function(category){ %>
-                        <li><a href="#"><%= category.name %></li>                            
+                            <li><a href="/products/categories/category/<%= category.slug %>"><%= category.name %></a></li>                          
                         <% }); %>                            
                     </ul>
                 </div>

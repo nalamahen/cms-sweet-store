@@ -10,6 +10,10 @@ var Product = require('../models/product');
 // Get Brand model
 var Brand = require('../models/brand');
 
+// Get Category model
+var Category = require('../models/category');
+
+
 /*
  * GET all products
  */
@@ -95,6 +99,30 @@ router.get('/:brand/:product', function (req, res) {
                 productImageUrl: paths.s3ImageUrl
             });
         }
+    });
+
+});
+
+/*
+ * GET products by category
+ */
+router.get('/categories/category/:category', function (req, res) {
+    var categorySlug = req.params.category;
+    var loggedIn = (req.isAuthenticated()) ? true : false;
+
+    Category.findOne({slug: categorySlug}, function (err, c) {
+        Product.find({category: categorySlug, instock: true}, function (err, products) {
+            if (err)
+                console.log(err);
+
+            res.render('brand_products', {
+                title: c.name,
+                products: products,
+                count: products.length,
+                loggedIn: loggedIn,
+                productImageUrl: paths.s3ImageUrl
+            });
+        });
     });
 
 });
