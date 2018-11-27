@@ -153,11 +153,13 @@ var adminPages = require('./routes/admin_pages.js');
 var adminBrands = require('./routes/admin_brands.js');
 var adminCategories = require('./routes/admin_categories.js');
 var adminProducts = require('./routes/admin_products.js');
+var adminPromotions = require('./routes/admin_promotions.js');
 
 app.use('/admin/pages', adminPages);
 app.use('/admin/brands', adminBrands);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
+app.use('/admin/promotions', adminPromotions);
 app.use('/products', products);
 app.use('/cart', cart);
 app.use('/users', users);

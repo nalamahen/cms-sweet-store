@@ -1,0 +1,46 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title">Promotions</h2>
+<a href="/admin/promotions/add" class="btn btn-primary">Add a new promotion</a>
+    
+<% if (count > 0) { %>
+
+<div class="col-xs-12 col-sm-12">
+    <div class="cartContent w100">
+        <table class="cartTable table-responsive">
+            <tbody>
+
+                <tr class="CartProduct cartTableHeader">
+                    <td style="width:30%">Promotion</td>                                                        
+                    <td style="width:40%">Image</td>     
+                    <td style="width:20%">Edit</td>                                   
+                    <td style="width:20%">Delete</td>
+                </tr>
+
+                <% promotions.forEach(promotion => { %>
+                <tr class="CartProduct">
+                    <td><%= promotion.title %></td>                                         
+                    <td class="CartProductThumb">
+                        <div>                                                                              
+                            <% if (promotion.image == "") { %>
+                            <img id="noimage" src="/images/noimage.jpg">
+                            <% } else {%>
+                            <img id="noimage" src="<%=productImageUrl %>/<%= promotion.image %>">
+                            <% }%>                                             
+                        </div>
+                    </td>
+                    <td><a href="/admin/promotions/edit/<%= product._id %>">Edit</a></td>
+                    <td><a class="confirmDeletion" href="/admin/promotions/delete/<%= product._id %>">Delete</a></td>
+                </tr>
+                <% }); %>                
+            </tbody>
+        </table>
+    </div>    
+</div>
+<!--Content-->
+
+<% } else {%>
+<h3 class="text-center">There are no promotions.</h3>
+<% }%>
+
+<%- include('../_layouts/adminfooter') %>

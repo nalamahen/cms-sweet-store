@@ -7,9 +7,10 @@ var auth = require('../config/auth');
 var keys = require('../config/keys');
 var paths = require('../config/paths');
 var isAdmin = auth.isAdmin;
-
+var addAndRemoveImage = require('../service/addRemoveS3Image');
+ 
 var AWS = require('aws-sdk');
-//AWS.config.loadFromPath('./config/upload.json');
+
 AWS.config.accessKeyId = keys.accessKeyId;
 AWS.config.secretAccessKey = keys.secretAccessKey;
 AWS.config.region = keys.region;
@@ -170,7 +171,7 @@ router.post('/add-product', function (req, res) {
                     if(imageFile != "") {
                         var productImage = req.files.image;
 
-                        addAndRemoveImage('add', imageFile, productImage, req, res);
+                        addAndRemoveImage(s3Bucket, 'add', imageFile, productImage);
                                                 
                     }
 
@@ -299,9 +300,9 @@ router.post('/edit-product/:id', function (req, res) {
 
                         if (imageFile != "") {
                             if(oldImage) {                                
-                                addAndRemoveImage('delete', oldImage)
+                                addAndRemoveImage(s3Bucket, 'delete', oldImage)
                             }                            
-                            addAndRemoveImage('add', imageFile, productImage, req, res);                                                        
+                            addAndRemoveImage(s3Bucket, 'add', imageFile, productImage);                                                        
                         }
 
                         req.flash('success', 'Product edited!');
@@ -329,7 +330,7 @@ router.get('/delete-product/:id', isAdmin, function (req, res) {
         if(err) {
             console.log(err);
         }else {
-            addAndRemoveImage('delete', p.image);            
+            addAndRemoveImage(s3Bucket, 'delete', p.image);            
         }
 
         req.flash('success', 'Product deleted!');
@@ -341,7 +342,8 @@ router.get('/delete-product/:id', isAdmin, function (req, res) {
 // Exports
 module.exports = router;
 
-function addAndRemoveImage(type, imageKey, productImage, req, res) {
+/*
+function addAndRemoveImage(s3Bucket, type, imageKey, productImage) {
     if(type === 'add') {
         var data = { Key: imageKey, ContentType: 'image', Body: productImage.data };
         s3Bucket.putObject(data, function (err, data) {
@@ -354,3 +356,4 @@ function addAndRemoveImage(type, imageKey, productImage, req, res) {
           })
     }
 }
+*/
