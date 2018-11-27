@@ -44,8 +44,13 @@ router.get('/', isAdmin, function (req, res) {
 
 router.post('/search', isAdmin, (req, res) => {
     var searchText = req.body.search;    
-   
-    Product.find({"name" : {'$regex': new RegExp(searchText, "i")}} , (err, products) => {        
+          
+    Product.find( {'$or': [
+                    {"name" : {'$regex': new RegExp(searchText, "i")}},
+                    {"brand" : {'$regex': new RegExp(searchText, "i")}},
+                    {"category" : {'$regex': new RegExp(searchText, "i")}},
+                    ]} ,                    
+                    (err, products) => {        
         if(err) {
             console.log(err);
         }
