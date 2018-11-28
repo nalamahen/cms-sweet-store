@@ -118,8 +118,6 @@ router.get('/edit/:id', isAdmin, (req, res) => {
 router.post('/edit/:id', isAdmin, (req, res) => {
     const imageFile = typeof req.files.image !== "undefined" ? req.files.image.name : "";
 
-    console.log('imageFile', imageFile);
-
     req.checkBody('title', 'Title must have a value.').notEmpty();
     req.checkBody('description', 'Description must have a value.').notEmpty();
     req.checkBody('image', 'You must upload an image').isImage(imageFile);

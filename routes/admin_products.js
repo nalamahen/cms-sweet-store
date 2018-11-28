@@ -236,8 +236,6 @@ router.post('/edit-product/:id', function (req, res) {
 
     var imageFile = typeof req.files.image !== "undefined" ? req.files.image.name : "";
 
-    console.log('imageFile:', + imageFile);
-
     req.checkBody('name', 'Name must have a value.').notEmpty();
     req.checkBody('desc', 'Description must have a value.').notEmpty();
     req.checkBody('price', 'Price must have a value.').isDecimal();
