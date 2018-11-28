@@ -14,182 +14,24 @@
         <div class="row">
             <div class="col-sm-10 show-case-wrapper center-block relative">
                 <div id="productShowCase" class="owl-carousel owl-theme">
-                    <div class="product-slide">
-                        <div class="col-sm-5 product-slide-left">
-                            <a class="product-slide-img"> <img alt="img" src="images/promotions/harrypotter-bertie-botts.jpg" class="img-responsive"></a>
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="product-slide-inner ">
-                                <h1 class="product-title">2/24 - 35g HP Bertie Bott's Every Flavour Beans.</h1>                               
+
+
+                    <% promotions.forEach(promotion => { %>
+                        <div class="product-slide">
+                            <div class="col-sm-5 product-slide-left">
+                                <a class="product-slide-img"> <img alt="img" src="<%= promotionImageUrl %>/<%= promotion.image %>" class="img-responsive"></a>
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="product-slide-inner ">
+                                    <h1 class="product-title"><%= promotion.title %></h1>                               
                                     
-                                <div class="details-description">
-                                    <p>Taste the most iconic candy from the Wizarding World of Harry Potter, Bertie Bott’s Every Flavor Beans from Jelly Belly</p>
-                                    <p>The Grab-n-Go bag has a fresh new look!</p>
-                                    <p>Each package comes a mix of 20 random flavors with flavors like Earwax, Soap or Vomit.</p>
-                                    <p>Strong appeal to kids, tweens, teens and even adults</p>
-                                    <p></p>Unit Dimensions: 5 cm L x  1.4 cm W x 8.2 cm H</p>
-                                    <p>Caddy Dimensions: 22 cm L x  13 cm W x 8.4 cm H</p>
-                                </div>                                
+                                    <div class="details-description">
+                                       <%= promotion.description %>
+                                    </div>                                
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-slide">
-                            <div class="col-sm-5 product-slide-left">
-                                <a class="product-slide-img"> <img alt="img" src="images/promotions/harrypotter-jelly-slugs.jpg" class="img-responsive"></a>
-                            </div>
-                            <div class="col-sm-7">
-                                <div class="product-slide-inner ">
-                                    <h1 class="product-title">2/12 - 56g Harry Potter Jelly Slugs (Palm Oil Free)</h1>                               
-                                        
-                                    <div class="details-description">
-                                        <p>Taste the most delicious slugs mentioned in the Wizarding World of Harry Potter!</p>
-                                        <p>The Grab-n-Go bag has a fresh new look!</p>
-                                        <p>Each package comes a mix of 5 random tasty flavors: Juicy Pear, Sour Cherry, Banana, Tangerine and Watermelon.</p>
-                                        <p>Strong appeal to kids, tweens, teens and even adults</p>
-                                        <p>Unit: 10 cm L x 1.3 cm W x 14 cm H</p>
-                                        <p>Caddy: 25 cm L x 14 cm W x 9 cm H</p>
-                                    </div>                                
-                                </div>
-                            </div>
-                    </div>
-                    <div class="product-slide">
-                            <div class="col-sm-5 product-slide-left">
-                                <a class="product-slide-img"> <img alt="img" src="images/promotions/harrypotter-chocolate-creatures.jpg" class="img-responsive"></a>
-                            </div>
-                            <div class="col-sm-7">
-                                <div class="product-slide-inner ">
-                                    <h1 class="product-title">24 – 15g HP Chocolate Creatures</h1>                               
-                                        
-                                    <div class="details-description">
-                                        <p>Enter the Wizarding World of Harry Potter with a fantastic new chocolate item from Jelly Belly</p>
-                                        <p>These chocolates are in the form of creatures from Harry Potter and include Hedwig, Fluffy, Fang, Aragog, Crookshanks and a thestral.</p>
-                                        <p>BLIND BAG PRODUCT WILL INCREASE PURCHASES: Each bag is packed with one of six random creatures AND a random exclusive collectible creature sticker!</p>
-                                        <p>Strong appeal to kids, tweens, teens and even adults</p>
-                                        <p>Unit Dimensions: 15 cm L x 7 cm W x 1 cm H</p>
-                                        <p>Caddy: 23cm L x 15cm W x 10cm H</p>
-                                        <p>Case: 25cm L x 17cm W x 13cm H</p>                                        
-                                    </div>                                
-                                </div>
-                            </div>
-                    </div>
-                    <div class="product-slide">
-                            <div class="col-sm-5 product-slide-left">
-                                <a class="product-slide-img"> <img alt="img" src="images/promotions/harrypotter-chocolate-frog.jpg" class="img-responsive"></a>
-                            </div>
-                            <div class="col-sm-7">
-                                <div class="product-slide-inner ">
-                                    <h1 class="product-title">24 – 15g HP Chocolate Frog</h1>                               
-                                        
-                                    <div class="details-description">
-                                            <p>Hop into the Wizarding World of Harry Potter with the best selling chocolate item from Jelly Belly</p>
-                                            <p>The chocolate staple of the Harry Potter Franchise has a fresh new look!</p>
-                                            <p>Each package comes with a random collectible Wizard Card.</p>
-                                            <p>Strong appeal to kids, tweens, teens and even adults</p>
-                                            <p>Unit Dimensions: 15 cm L x 7 cm W x 1 cm H</p>
-                                            <p>Caddy: 23cm L x 15cm W x 10cm H</p>
-                                            <p>Case: 25cm L x 17cm W x 13cm H</p>                                             
-                                    </div>                                
-                                </div>
-                            </div>
-                    </div>                    
-                    <div class="product-slide">
-                            <div class="col-sm-5 product-slide-left">
-                                <a class="product-slide-img"> <img alt="img" src="images/promotions/harrypotter-chocolate-wands.jpg" class="img-responsive"></a>
-                            </div>
-                            <div class="col-sm-7">
-                                <div class="product-slide-inner ">
-                                    <h1 class="product-title">2/6 – 42g Harry Potter’s Chocolate Wand</h1>                               
-                                        
-                                    <div class="details-description">
-                                        <p>Enter the Wizarding World of Harry Potter with a fantastic new chocolate item from Jelly Belly</p>
-                                        <p>Each wand box will include a sheet of Magical Spells</p>
-                                        <p>Strong appeal to kids, tweens, teens and even adults</p>
-                                        <p>Unit Dimensions: 285mm tall x 65mm wide x 38mm deep</p>
-                                        <p>Caddy Dimensions: 237mm long, 68mm wide, 190mm tall</p>
-                                        <p>Case dimensions: 255mm long, 155mm wide, 317mm tall</p>
-                                    </div>                                
-                                </div>
-                            </div>
-                    </div>
-                    <div class="product-slide">
-                            <div class="col-sm-5 product-slide-left">
-                                <a class="product-slide-img"> <img alt="img" src="images/promotions/harrypotter-gummi-creatures.jpg" class="img-responsive"></a>
-                            </div>
-                            <div class="col-sm-7">
-                                <div class="product-slide-inner ">
-                                    <h1 class="product-title">2/24 42g Harry Potter Gummi Creatures (Palm Oil Free)</h1>                               
-                                        
-                                    <div class="details-description">
-                                            <p>Enter the Wizarding World of Harry Potter with a fantastic new Gummi item from Jelly Belly</p>
-                                            <p>Gummis are in the form of creatures from Harry Potter</p>
-                                            <p>Image of caddy for visual only – will contain assortment of all 6 gummi creatures</p>
-                                            <p>Strong appeal to kids, tweens, teens and even adults</p>
-                                            <p>Unit dimensions:  14.7 cm L x 7.5 cm W x 5 cm H</p>
-                                            <p>Caddy: 23cm L x 15cm W x 10cm H</p>
-                                            <p>Case: 32cm L x 25cm W x 11cm H </p>
-                                            
-                                    </div>                                
-                                </div>
-                            </div>
-                    </div>
-                    <div class="product-slide">
-                            <div class="col-sm-5 product-slide-left">
-                                <a class="product-slide-img"> <img alt="img" src="images/promotions/harrypotter-hermione-chocolate-wands.jpg" class="img-responsive"></a>
-                            </div>
-                            <div class="col-sm-7">
-                                <div class="product-slide-inner ">
-                                    <h1 class="product-title">2/6 – 42g Hermione & Ron’s Chocolate Wands</h1>                               
-                                        
-                                    <div class="details-description">
-                                            <p>Enter the Wizarding World of Harry Potter with a fantastic new chocolate item from Jelly Belly</p>
-                                            <p>Each wand box will include a sheet of Magical Spells</p>
-                                            <p>Strong appeal to kids, tweens, teens and even adults</p>
-                                            <p>Unit Dimensions: 285mm tall x 65mm wide x 38mm deep</p>
-                                            <p>Caddy Dimensions: 237mm long, 68mm wide, 190mm tall</p>
-                                            <p>Case dimensions: 255mm long, 155mm wide, 317mm tall</p>                                          
-                                    </div>                                
-                                </div>
-                            </div>
-                    </div>
-                    <div class="product-slide">
-                            <div class="col-sm-5 product-slide-left">
-                                <a class="product-slide-img"> <img alt="img" src="images/promotions/harrypotter-chocolate-crests.jpg" class="img-responsive"></a>
-                            </div>
-                            <div class="col-sm-7">
-                                <div class="product-slide-inner ">
-                                    <h1 class="product-title">12 – 28g Harry Potter Chocolate Crests</h1>                               
-                                        
-                                    <div class="details-description">
-                                            <p>Enter the Wizarding World of Harry Potter with a fantastic new chocolate item from Jelly Belly</p>
-                                            <p>Comes with the house crests of Gryffindor, Slytherin, Hufflepuff, and Ravenclaw.</p>
-                                            <p>Strong appeal to kids, tweens, teens and even adults</p>
-                                            <p>Unit Dimensions: 285mm tall x 63mm wide x 16mm deep</p>
-                                            <p>Caddy Dimensions: 207mm long, 65mm wide, 191mm tall</p>
-                                            <p>Case Dimensions: 230mm long, 80mm wide, 325mm tall</p>
-                                            
-                                    </div>                                
-                                </div>
-                            </div>
-                    </div>
-                    <div class="product-slide">
-                            <div class="col-sm-5 product-slide-left">
-                                <a class="product-slide-img"> <img alt="img" src="images/promotions/harrypotter-dumbledore-chocolate-wand.jpg" class="img-responsive"></a>
-                            </div>
-                            <div class="col-sm-7">
-                                <div class="product-slide-inner ">
-                                    <h1 class="product-title">2/6 – 42g Albus Dumbledore’s Chocolate Wand</h1>                               
-                                        
-                                    <div class="details-description">
-                                            <p>Enter the Wizarding World of Harry Potter with a fantastic new chocolate item from Jelly Belly</p>
-                                            <p>Each wand box will include a sheet of Magical Spells</p>
-                                            <p>Strong appeal to kids, tweens, teens and even adults</p>
-                                            <p>Unit Dimensions: 285mm tall x 65mm wide x 38mm deep</p>
-                                            <p>Caddy Dimensions: 237mm long, 68mm wide, 190mm tall</p>
-                                            <p>Case dimensions: 255mm long, 155mm wide, 317mm tall</p>                                            
-                                    </div>                                
-                                </div>
-                            </div>
-                    </div>
+                    <% }); %>                    
 
                 </div>
                 <!--/#productShowCase -->

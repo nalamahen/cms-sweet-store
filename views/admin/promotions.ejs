@@ -2,6 +2,7 @@
 
 <h2 class="page-title">Promotions</h2>
 <a href="/admin/promotions/add" class="btn btn-primary">Add a new promotion</a>
+<br /><br />
     
 <% if (count > 0) { %>
 
@@ -11,7 +12,7 @@
             <tbody>
 
                 <tr class="CartProduct cartTableHeader">
-                    <td style="width:30%">Promotion</td>                                                        
+                    <td style="width:40%">Promotion</td>                                                        
                     <td style="width:40%">Image</td>     
                     <td style="width:20%">Edit</td>                                   
                     <td style="width:20%">Delete</td>
@@ -29,8 +30,8 @@
                             <% }%>                                             
                         </div>
                     </td>
-                    <td><a href="/admin/promotions/edit/<%= product._id %>">Edit</a></td>
-                    <td><a class="confirmDeletion" href="/admin/promotions/delete/<%= product._id %>">Delete</a></td>
+                    <td><a href="/admin/promotions/edit/<%= promotion._id %>">Edit</a></td>
+                    <td><a class="confirmDeletion" href="/admin/promotions/delete/<%= promotion._id %>">Delete</a></td>
                 </tr>
                 <% }); %>                
             </tbody>

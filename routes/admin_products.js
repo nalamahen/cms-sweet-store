@@ -1,8 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var mkdirp = require('mkdirp');
-var fs = require('fs-extra');
-var resizeImg = require('resize-img');
 var auth = require('../config/auth');
 var keys = require('../config/keys');
 var paths = require('../config/paths');
@@ -323,8 +320,7 @@ router.post('/edit-product/:id', function (req, res) {
 
 router.get('/delete-product/:id', isAdmin, function (req, res) {
 
-    var id = req.params.id;
-    var path = 'public/product_images/' + id;
+    var id = req.params.id;   
 
     Product.findByIdAndRemove(id, function (err, p) {
         if(err) {
@@ -342,18 +338,3 @@ router.get('/delete-product/:id', isAdmin, function (req, res) {
 // Exports
 module.exports = router;
 
-/*
-function addAndRemoveImage(s3Bucket, type, imageKey, productImage) {
-    if(type === 'add') {
-        var data = { Key: imageKey, ContentType: 'image', Body: productImage.data };
-        s3Bucket.putObject(data, function (err, data) {
-            if (err) return console.log('Error uploading data: ', data);           
-        });
-
-    }else {
-        s3Bucket.deleteObject({ Key: imageKey },function (err,data){
-              if(err) return console.log('Error deleting image');              
-          })
-    }
-}
-*/

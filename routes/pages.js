@@ -7,6 +7,8 @@ var Page = require('../models/page');
 
 // Get Product model
 var Product = require('../models/product');
+
+var Promotion = require('../models/promotion');
 /*
  * GET /
  */
@@ -15,16 +17,19 @@ router.get('/', function (req, res) {
     Page.findOne({slug: 'home'}, function (err, page) {
 
         Product.find({featured: true, instock: true}, function (err, products) {
-            if (err)
-                console.log(err);
-
-            res.render('index', {
-                title: page.title,
-                content: page.content,
-                products: products,
-                loggedIn: loggedIn,
-                count: products.length,                
-                productImageUrl: paths.s3ImageUrl
+            Promotion.find({display: true}, (err, promotions) => {
+                if (err) console.log(err);
+    
+                res.render('index', {
+                    title: page.title,
+                    content: page.content,
+                    products: products,
+                    loggedIn: loggedIn,
+                    count: products.length,                
+                    productImageUrl: paths.s3ImageUrl,
+                    promotions: promotions,
+                    promotionImageUrl: paths.s3PromotionsImageUrl
+                });
             });
         });
         /*
