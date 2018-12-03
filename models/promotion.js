@@ -5,7 +5,7 @@ const PromotionSchema = mongoose.Schema({
     description: String,
     image: String,
     display: { type: Boolean , default: true },
-    dateCreated: Date
+    dateCreated: {type: Date, default: Date.now}
 });
 
 

@@ -1,0 +1,47 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title">Brand Images</h2>
+<a href="/admin/brand_images/add" class="btn btn-primary">Add a new Brand Image</a>
+<br /><br />
+    
+<% if (count > 0) { %>
+
+<div class="col-xs-12 col-sm-12">
+    <div class="cartContent w100">
+        <table class="cartTable table-responsive">
+            <tbody>
+
+                <tr class="CartProduct cartTableHeader">
+                    <td style="width:40%">Brand</td>                                                        
+                    <td style="width:40%">Image</td>     
+                    <td style="width:20%">Edit</td>                                   
+                    <td style="width:20%">Delete</td>
+                </tr>
+
+                <% brandImages.forEach(brandImae => { %>
+                <tr class="CartProduct">
+                    <td><%= brandImae.name %></td>                                         
+                    <td class="CartProductThumb">
+                        <div>                                                                              
+                            <% if (brandImae.image == "") { %>
+                            <img id="noimage" src="/images/noimage.jpg">
+                            <% } else {%>
+                            <img id="noimage" src="<%=brandImageUrl %>/<%= brandImae.image %>">
+                            <% }%>                                             
+                        </div>
+                    </td>
+                    <td><a href="/admin/brand_images/edit/<%= brandImae._id %>">Edit</a></td>
+                    <td><a class="confirmDeletion" href="/admin/brand_images/delete/<%= brandImae._id %>">Delete</a></td>
+                </tr>
+                <% }); %>                
+            </tbody>
+        </table>
+    </div>    
+</div>
+<!--Content-->
+
+<% } else {%>
+<h3 class="text-center">There are no brand images.</h3>
+<% }%>
+
+<%- include('../_layouts/adminfooter') %>

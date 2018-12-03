@@ -7,8 +7,8 @@ var Page = require('../models/page');
 
 // Get Product model
 var Product = require('../models/product');
-
 var Promotion = require('../models/promotion');
+var BrandImage = require('../models/brand_image');
 /*
  * GET /
  */
@@ -18,18 +18,24 @@ router.get('/', function (req, res) {
 
         Product.find({featured: true, instock: true}, function (err, products) {
             Promotion.find({display: true}, (err, promotions) => {
-                if (err) console.log(err);
+                BrandImage.find({display: true}, (err, brandImages) => {
+                    if (err) console.log(err);
+
+                    res.render('index', {
+                        title: page.title,
+                        content: page.content,
+                        products: products,
+                        loggedIn: loggedIn,
+                        count: products.length,                
+                        productImageUrl: paths.s3ImageUrl,
+                        promotions: promotions,
+                        promotionImageUrl: paths.s3PromotionsImageUrl,
+                        brandImages: brandImages,
+                        brandImageUrl: paths.s3BrandImageUrl
     
-                res.render('index', {
-                    title: page.title,
-                    content: page.content,
-                    products: products,
-                    loggedIn: loggedIn,
-                    count: products.length,                
-                    productImageUrl: paths.s3ImageUrl,
-                    promotions: promotions,
-                    promotionImageUrl: paths.s3PromotionsImageUrl
+                    });
                 });
+
             });
         });
         /*

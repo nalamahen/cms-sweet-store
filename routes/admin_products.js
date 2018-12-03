@@ -1,19 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var auth = require('../config/auth');
-var keys = require('../config/keys');
 var paths = require('../config/paths');
+const bucket = require('../config/s3Bucket');
 var isAdmin = auth.isAdmin;
 var addAndRemoveImage = require('../service/addRemoveS3Image');
  
-var AWS = require('aws-sdk');
-
-AWS.config.accessKeyId = keys.accessKeyId;
-AWS.config.secretAccessKey = keys.secretAccessKey;
-AWS.config.region = keys.region;
-
-var imageBucket = 'sweet-product-images';
-var s3Bucket = new AWS.S3({params: {Bucket: imageBucket}}); 
+var s3Bucket = bucket('sweet-product-images');
 
 // Get Sweet model
 var Product = require('../models/product');

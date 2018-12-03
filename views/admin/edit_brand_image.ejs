@@ -1,0 +1,44 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title">Edit Brand Image</h2>
+<a href="/admin/brand_images" class="btn btn-primary">Back to all brand images</a>
+<br><br>
+
+<form method="post" action="/admin/brand_images/edit/<%= id %>" enctype="multipart/form-data">
+    
+    <div class="form-group">
+        <label for="">Title</label>
+        <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="Name">
+    </div>
+    
+    <div class="form-group">
+        <label for="">Link</label>
+        <input type="text" class="form-control" name="link" value="<%= link %>" placeholder="link">
+    </div>
+    
+    <div class="form-group">
+        <label for="">Current Image</label>
+        <p>
+            <% if (image == "") { %>
+            <img id="noimage" src="/images/noimage.png" alt="">
+            <% } else {%>
+            <img id="noimage" src="<%= brandImageUrl %>/<%= image %>" alt="">
+            <% } %>
+        </p>
+    </div>
+    
+    <div class="form-group">
+        <label for="">Upload Image</label>
+        <input type="file" class="form-control" name="image" id="img">
+        <img src="#" id="imgPreview" alt="">
+    </div>
+    
+    <div class="form-group">
+        <label for="">Display</label>       
+        <input type="checkbox" name="display" <%if(display){%> checked <%}%> >
+    </div>
+        
+    <button class="btn btn-primary">Submit</button>
+</form>
+
+<%- include('../_layouts/adminfooter') %>

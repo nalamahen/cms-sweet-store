@@ -52,25 +52,10 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <ul class="no-margin brand-carousel owl-carousel owl-theme">                                                         
-                            <li class="brand-box"><a href="/products/jelly-belly"><img src="images/brands/jelly-belly.png" alt="Jelly Belly"></a>                                </li>
-                            <li class="brand-box"><a href="/products/airheads"><img src="images/brands/airheads.jpg" alt="Airheads"></a>                                </li>
-                            <li class="brand-box"><a href="/products/cowtales"><img src="images/brands/cowtales.png" alt="Cowtales"></a></li>
-                            <li class="brand-box"><a href="/products/ferrara"><img src="images/brands/ferrara.png" alt="Ferrara"></a></li>
-                            <li class="brand-box"><a href="/products/hershey"><img src="images/brands/hershey.png" alt="Hershey"></a></li>
-                            <li class="brand-box"><a href="/products/ice-breakers"><img src="images/brands/ice-breakers.png" alt="Ice Breakers"></a></li>
-                            <li class="brand-box"><a href="/products/jolly-rancher"><img src="images/brands/jolly-rancher.jpg" alt="Jolly Rancher"></a></li>
-                            <li class="brand-box"><a href="/products/laffy-taffy"><img src="images/brands/laffy-taffy.png" alt="Laffy Taffy"></a></li>
-                            <li class="brand-box"><a href="/products/m&m"><img src="images/brands/m-and-m.jpg" alt="M and M"></a></li>
-                            <li class="brand-box"><a href="/products/mike-&-ike"><img src="images/brands/mike-and-Ike.png" alt="Mike and Ike"></a></li>
-                            <li class="brand-box"><a href="/products/nerds"><img src="images/brands/nerds.png" alt="Nerds"></a></li>
-                            <li class="brand-box"><a href="/products/pop-rocks"><img src="images/brands/pop-rocks.png" alt="Pop Rocks"></a></li>
-                            <li class="brand-box"><a href="/products/pretzel"><img src="images/brands/pretzel.png" alt="Pretzel"></a></li>
-                            <li class="brand-box"><a href="/products/snickers"><img src="images/brands/snikers.png" alt="Snikers"></a></li>
-                            <li class="brand-box"><a href="/products/sour-patch"><img src="images/brands/sour-patch.png" alt="Sour Patch"></a></li>
-                            <li class="brand-box"><a href="/products/swedish-fish"><img src="images/brands/swedish-fish.png" alt="Swedish Fish"></a></li>
-                            <li class="brand-box"><a href="/products/twizzlers"><img src="images/brands/twizzlers.png" alt="Twizzlers"></a></li>
-                            <li class="brand-box"><a href="/products/warheads"><img src="images/brands/warheads.jpg" alt="Warheads"></a></li>
-                            <li class="brand-box"><a href="/products/others"><img src="images/brands/more-brands.png" alt="click for more brands"></a></li>
+                            <% brandImages.forEach(function(brandImage) { %>
+                                <li class="brand-box"><a href="<%= brandImage.link %>"><img src="<%= brandImageUrl%>/<%= brandImage.image%>" alt="<%= brandImage.name %>"></a></li>
+                            <% }); %>
+                                                                                    
                         </ul>
                     </div>
                 </div>

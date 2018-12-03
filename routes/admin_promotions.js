@@ -1,19 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../config/auth');
-const keys = require('../config/keys');
 const paths = require('../config/paths');
 const isAdmin = auth.isAdmin;
+const bucket = require('../config/s3Bucket');
 const addAndRemoveImage = require('../service/addRemoveS3Image');
- 
-const AWS = require('aws-sdk');
 
-AWS.config.accessKeyId = keys.accessKeyId;
-AWS.config.secretAccessKey = keys.secretAccessKey;
-AWS.config.region = keys.region;
 
-const imageBucket = 'promotions-images';
-const s3Bucket = new AWS.S3({params: {Bucket: imageBucket}}); 
+const s3Bucket = bucket('promotions-images');
 
 // Get Promotion model
 const Promotion = require('../models/promotion');
@@ -72,8 +66,7 @@ router.post('/add', isAdmin, (req, res) => {
                 const promotion = new Promotion({
                     title,
                     description,
-                    image: imageFile,
-                    dateCreated: Date.now() 
+                    image: imageFile                    
                 });
 
                 promotion.save(err => {
