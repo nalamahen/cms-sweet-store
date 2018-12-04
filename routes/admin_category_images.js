@@ -7,17 +7,17 @@ const bucket = require('../config/s3Bucket');
 const addAndRemoveImage = require('../service/addRemoveS3Image');
 
 
-const s3Bucket = bucket('home-brand-images');
+const s3Bucket = bucket('home-category-images');
 
 // Get CategoryImage model
-const BrandImage = require('../models/brand_image');
+const CategoryImage = require('../models/category_image');
 
 router.get('/', isAdmin, (req, res) => {
-    BrandImage.find((err, brandImages) => {
-        res.render('admin/brand_images', {
-            brandImages,
-            count: brandImages.length,
-            brandImageUrl: paths.s3BrandImageUrl
+    CategoryImage.find((err, categoryImages) => {
+        res.render('admin/category_images', {
+            categoryImages,
+            count: categoryImages.length,
+            categoryImageUrl: paths.s3CategoryImageUrl
         });
     });    
 });
@@ -28,7 +28,7 @@ router.get('/add', isAdmin, (req, res) => {
     const name = "";
     const link = "";
 
-    res.render("admin/add_brand_image", {
+    res.render("admin/add_category_image", {
         name,
         link
     });
@@ -49,37 +49,37 @@ router.post('/add', isAdmin, (req, res) => {
     const errors = req.validationErrors();
 
     if(errors) {
-        res.render('admin/add_brand_image', {
+        res.render('admin/add_category_image', {
             name,
             link,
             errors
         });
     }else {
-        BrandImage.findOne({name: name}, (err, brandImage) => {
-            if(brandImage) {
-                req.flash('danger', 'Brand image name exists, choose another.');
-                res.render('admin/add_brand_image', {
+        CategoryImage.findOne({name: name}, (err, categoryImage) => {
+            if(categoryImage) {
+                req.flash('danger', 'Category image name exists, choose another.');
+                res.render('admin/add_category_image', {
                     name,
                     link                    
                 });
             }else{
-                const brandImage = new BrandImage({
+                const categoryImage = new CategoryImage({
                     name,
                     link,
                     image: imageFile                    
                 });
 
-                brandImage.save(err => {
+                categoryImage.save(err => {
                     if(err) {
                         return console.log(err);
                     }
 
                     if(imageFile) {
-                        const brand_image = req.files.image;
-                        addAndRemoveImage(s3Bucket, 'add', imageFile, brand_image);
+                        const category_image = req.files.image;
+                        addAndRemoveImage(s3Bucket, 'add', imageFile, category_image);
                     }
-                    req.flash('success', 'Brand image added');  
-                    res.redirect('/admin/brand_images');                  
+                    req.flash('success', 'Category image added');  
+                    res.redirect('/admin/category_images');                  
                 })
             }
         });
@@ -89,19 +89,19 @@ router.post('/add', isAdmin, (req, res) => {
 
 router.get('/edit/:id', isAdmin, (req, res) => {  
 
-    BrandImage.findById(req.params.id, (err, brandImage) => {
+    CategoryImage.findById(req.params.id, (err, categoryImage) => {
 
         if(err) {
             console.log(err);
-            res.redirect('/admin/brand_images');
+            res.redirect('/admin/category_images');
         }else {
-            res.render('admin/edit_brand_image', {
-                id: brandImage.id,
-                name: brandImage.name,
-                link: brandImage.link,
-                image: brandImage.image,
-                display: brandImage.display,
-                brandImageUrl: paths.s3BrandImageUrl
+            res.render('admin/edit_category_image', {
+                id: categoryImage.id,
+                name: categoryImage.name,
+                link: categoryImage.link,
+                image: categoryImage.image,
+                display: categoryImage.display,
+                categoryImageUrl: paths.s3CategoryImageUrl
             });
             
         }
@@ -124,30 +124,30 @@ router.post('/edit/:id', isAdmin, (req, res) => {
 
     if (errors) {
         req.session.errors = errors;
-        res.redirect('/admin/brand_images/edit/' + id);
+        res.redirect('/admin/category_images/edit/' + id);
     } else {
-        BrandImage.findOne({name: name, _id: {'$ne': id}}, (err, brandImage) => {
+        CategoryImage.findOne({name: name, _id: {'$ne': id}}, (err, categoryImage) => {
             if (err)
                 console.log(err);
 
-            if (brandImage) {
-                req.flash('danger', 'Brand image name exists, choose another.');
-                res.redirect('/admin/brand_images/edit/' + id);
+            if (categoryImage) {
+                req.flash('danger', 'Category image name exists, choose another.');
+                res.redirect('/admin/category_images/edit/' + id);
             } else {
-                BrandImage.findById(id, (err, brandImage) => {
+                CategoryImage.findById(id, (err, categoryImage) => {
                     if (err)
                         console.log(err);
 
-                    const oldImage = brandImage.image;                      
+                    const oldImage = categoryImage.image;                      
 
-                    brandImage.name = name;
-                    brandImage.link = link;                                      
+                    categoryImage.name = name;
+                    categoryImage.link = link;                                      
                     if (imageFile != "") {
-                        brandImage.image = imageFile;
+                        categoryImage.image = imageFile;
                     }
-                    brandImage.display = display == 'on' ? true : false;                
-                    brandImage.save(err => {
-                        const brand_image = req.files.image;                        
+                    categoryImage.display = display == 'on' ? true : false;                
+                    categoryImage.save(err => {
+                        const category_image = req.files.image;                        
                         if (err)
                             console.log(err);
 
@@ -155,11 +155,11 @@ router.post('/edit/:id', isAdmin, (req, res) => {
                             if(oldImage) {                                
                                 addAndRemoveImage(s3Bucket, 'delete', oldImage)
                             }                            
-                            addAndRemoveImage(s3Bucket, 'add', imageFile, brand_image);                                                        
+                            addAndRemoveImage(s3Bucket, 'add', imageFile, category_image);                                                        
                         }
 
-                        req.flash('success', 'Brand image edited!');
-                        res.redirect('/admin/brand_images/edit/' + id);
+                        req.flash('success', 'Category image edited!');
+                        res.redirect('/admin/category_images/edit/' + id);
                     });
 
                 });
@@ -173,15 +173,15 @@ router.get('/delete/:id', isAdmin, (req, res) => {
 
     const id = req.params.id;    
 
-    BrandImage.findByIdAndRemove(id, (err, brandImage) => {
+    CategoryImage.findByIdAndRemove(id, (err, categoryImage) => {
         if(err) {
             console.log(err);
         }else {
-            addAndRemoveImage(s3Bucket, 'delete', brandImage.image);            
+            addAndRemoveImage(s3Bucket, 'delete', categoryImage.image);            
         }
 
-        req.flash('success', 'Brand image deleted!');
-        res.redirect('/admin/brand_images');
+        req.flash('success', 'Category image deleted!');
+        res.redirect('/admin/category_images');
     });
 
 });

@@ -112,62 +112,16 @@
             <h1>Featured Categories</h1>            
         </div>
         <div class="row subCategoryList clearfix">
-            <div class="col-md-2 col-sm-3 col-xs-4  col-xs-mini-6  text-center ">
-                <div class="thumbnail">                   
-                    <a class="subCategoryThumb" href="/products/categories/category/american-chewing-gum">
-                        <img src="/images/categories/american-chewingum.png" class="img-rounded " alt="img"> 
-                    </a> 
-                        <a href="/products/categories/category/american-chewing-gum" class="subCategoryTitle"><span>American Gum</span></a>
+            <% categoryImages.forEach(categoryImage => {%>
+                <div class="col-md-2 col-sm-3 col-xs-4  col-xs-mini-6  text-center ">
+                    <div class="thumbnail">                   
+                        <a class="subCategoryThumb" href="<%= categoryImage.link %>">
+                            <img src="<%= categoryImageUrl %>/<%= categoryImage.image%>" class="img-rounded " alt="img"> 
+                        </a> 
+                            <a href="<%= categoryImage.link %>" class="subCategoryTitle"><span><%= categoryImage.name %></span></a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-4  col-xs-mini-6  text-center ">
-                <div class="thumbnail">
-                    <a class="subCategoryThumb" href="/products/categories/category/cerials">
-                        <img src="/images/categories/cereals.png" class="img-rounded " alt="img"> 
-                    </a> 
-                        <a href="/products/categories/category/cerials" class="subCategoryTitle"><span>Cereals</span></a>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-4  col-xs-mini-6  text-center ">
-                <div class="thumbnail">
-                    <a class="subCategoryThumb" href="/products/categories/category/hanging-bags">
-                        <img src="/images/categories/hanging-bags.png" class="img-rounded " alt="img"> 
-                    </a> 
-                        <a href="/products/categories/category/hanging-bags" class="subCategoryTitle"><span>Hanging Bags</span></a>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-4  col-xs-mini-6  text-center ">
-                <div class="thumbnail">
-                    <a class="subCategoryThumb" href="/products/categories/category/harry-potter">
-                        <img src="/images/categories/harry-potter.png" class="img-rounded " alt="img"> 
-                    </a> 
-                        <a href="/products/categories/category/harry-potter" class="subCategoryTitle"><span>Harry Potter</span></a>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-4  col-xs-mini-6  text-center ">
-                <div class="thumbnail">
-                    <a class="subCategoryThumb" href="/products/categories/category/marvel-character">
-                        <img src="/images/categories/marvel-charater.png" class="img-rounded " alt="img"> 
-                    </a> 
-                        <a href="/products/categories/category/marvel-character" class="subCategoryTitle"><span>Marvel Character</span></a>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-4  col-xs-mini-6  text-center ">
-                <div class="thumbnail">
-                    <a class="subCategoryThumb" href="/products/categories/category/seasonal">
-                        <img src="/images/categories/seasonal.png" class="img-rounded " alt="img"> 
-                    </a> 
-                        <a href="/products/categories/category/seasonal" class="subCategoryTitle"><span>Seasonal</span></a>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-4  col-xs-mini-6  text-center ">
-                <div class="thumbnail">
-                    <a class="subCategoryThumb" href="/products/categories/category/soft-drinks">
-                        <img src="/images/categories/softdrinks.png" class="img-rounded " alt="img"> 
-                    </a> 
-                        <a href="/products/categories/category/soft-drinks" class="subCategoryTitle"><span>Soft Drinks</span></a>
-                </div>
-            </div>                        
+            <%}); %>      
         </div>
         <!--/.row-->
 

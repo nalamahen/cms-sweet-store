@@ -1,0 +1,47 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title">Category Images</h2>
+<a href="/admin/category_images/add" class="btn btn-primary">Add a new Category Image</a>
+<br /><br />
+    
+<% if (count > 0) { %>
+
+<div class="col-xs-12 col-sm-12">
+    <div class="cartContent w100">
+        <table class="cartTable table-responsive">
+            <tbody>
+
+                <tr class="CartProduct cartTableHeader">
+                    <td style="width:40%">Category</td>                                                        
+                    <td style="width:40%">Image</td>     
+                    <td style="width:20%">Edit</td>                                   
+                    <td style="width:20%">Delete</td>
+                </tr>
+
+                <% categoryImages.forEach(categoryImae => { %>
+                <tr class="CartProduct">
+                    <td><%= categoryImae.name %></td>                                         
+                    <td class="CartProductThumb">
+                        <div>                                                                              
+                            <% if (categoryImae.image == "") { %>
+                            <img id="noimage" src="/images/noimage.jpg">
+                            <% } else {%>
+                            <img id="noimage" src="<%=categoryImageUrl %>/<%= categoryImae.image %>">
+                            <% }%>                                             
+                        </div>
+                    </td>
+                    <td><a href="/admin/category_images/edit/<%= categoryImae._id %>">Edit</a></td>
+                    <td><a class="confirmDeletion" href="/admin/category_images/delete/<%= categoryImae._id %>">Delete</a></td>
+                </tr>
+                <% }); %>                
+            </tbody>
+        </table>
+    </div>    
+</div>
+<!--Content-->
+
+<% } else {%>
+<h3 class="text-center">There are no category images.</h3>
+<% }%>
+
+<%- include('../_layouts/adminfooter') %>

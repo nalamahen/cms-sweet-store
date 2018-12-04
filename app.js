@@ -153,6 +153,7 @@ var adminPages = require('./routes/admin_pages.js');
 var adminBrands = require('./routes/admin_brands.js');
 var adminBrandImages = require('./routes/admin_brand_images.js');
 var adminCategories = require('./routes/admin_categories.js');
+var adminCategoryImages = require('./routes/admin_category_images.js');
 var adminProducts = require('./routes/admin_products.js');
 var adminPromotions = require('./routes/admin_promotions.js');
 
@@ -160,6 +161,7 @@ app.use('/admin/pages', adminPages);
 app.use('/admin/brands', adminBrands);
 app.use('/admin/brand_images', adminBrandImages);
 app.use('/admin/categories', adminCategories);
+app.use('/admin/category_images', adminCategoryImages);
 app.use('/admin/products', adminProducts);
 app.use('/admin/promotions', adminPromotions);
 app.use('/products', products);

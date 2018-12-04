@@ -1,10 +1,10 @@
 <%- include('../_layouts/adminheader') %>
 
-<h2 class="page-title">Add a brand image</h2>
-<a href="/admin/brand_images" class="btn btn-primary">Back to all brand images</a>
+<h2 class="page-title">Add a category image</h2>
+<a href="/admin/category_images" class="btn btn-primary">Back to all category images</a>
 <br><br>
 
-<form method="post" action="/admin/brand_images/add" enctype="multipart/form-data">
+<form method="post" action="/admin/category_images/add" enctype="multipart/form-data">
    
     <div class="form-group">
         <label for="">Name</label>
@@ -24,5 +24,6 @@
 
     <button class="btn btn-primary">Submit</button>
 </form>
+<script src="../../utils/imagePreviewLoad.js"></script>   
 
 <%- include('../_layouts/adminfooter') %>
