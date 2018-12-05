@@ -1,0 +1,38 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title">Orders</h2>
+<br /><br />
+    
+<% if (count > 0) { %>
+
+<div class="col-xs-12 col-sm-12">
+    <div class="cartContent w100">
+        <table class="cartTable table-responsive">
+            <tbody>
+
+                <tr class="CartProduct cartTableHeader">
+                    <td style="width:40%">Order No</td>                                                        
+                    <td style="width:40%">User</td>     
+                    <td style="width:40%">Date</td>                                                 
+                    <td style="width:20%">Delete</td>
+                </tr>
+
+                <% orders.forEach(order => { %>
+                <tr class="CartProduct">
+                    <td><a href="/admin/orders/<%= order.id %>"><%= order.orderNo %></a></td>                                         
+                    <td><%= order.user.name %></td>
+                    <td><%= order.date.toDateString() %></td>               
+                    <td><a class="confirmDeletion" href="/admin/orders/delete/<%= order._id %>">Delete</a></td>
+                </tr>
+                <% }); %>                
+            </tbody>
+        </table>
+    </div>    
+</div>
+<!--Content-->
+
+<% } else {%>
+<h3 class="text-center">There are no orders.</h3>
+<% }%>
+
+<%- include('../_layouts/adminfooter') %>

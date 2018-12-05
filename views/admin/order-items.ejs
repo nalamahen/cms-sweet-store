@@ -1,0 +1,52 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title">Order items</h2>
+<a href="/admin/orders" class="btn btn-primary">Back to all orders</a>
+    <div class="admin-search">Order Ref: <%=order.orderNo%><br>User: <%=order.user.name%></div> 
+<br><br>
+
+<% if (order) { %>
+
+<div class="col-xs-12 col-sm-12">
+    <div class="cartContent w100">
+        <table class="cartTable table-responsive">
+            <tbody>
+
+                <tr class="CartProduct cartTableHeader">
+                    <td style="width:30%">Item</td>
+                    <td style="width:10%">Price</td> 
+                    <td style="width:10%">Quantity</td>                                              
+                    <td style="width:40%">Image</td>     
+                    <td style="width:20%">Edit</td>                                   
+                    <td style="width:20%">Delete</td>
+                </tr>
+
+                <% order.items.forEach(item => { %>
+                <tr class="CartProduct">
+                    <td><%= item.title %></td>    
+                    <td>£<%= parseFloat(item.price).toFixed(2) %></td> 
+                    <td><%= item.qty %></td>                    
+                    <td class="CartProductThumb">
+                        <div>                                                                              
+                            <% if (item.image == "") { %>
+                            <img id="noimage" src="/images/noimage.jpg">
+                            <% } else {%>
+                            <img id="noimage" src="<%= item.image %>">
+                            <% }%>                                             
+                        </div>
+                    </td>
+                    <td><a href="/admin/orders/edit-order-item/<%= item._id %>">Edit</a></td>
+                    <td><a class="confirmDeletion" href="/admin/orders/delete-item/<%= item._id %>">Delete</a></td>
+                </tr>
+                <% }); %>                
+            </tbody>
+        </table>
+    </div>    
+</div>
+<!--Content-->
+
+<% } else {%>
+<h3 class="text-center">There are no products.</h3>
+<% }%>
+
+<%- include('../_layouts/adminfooter') %>

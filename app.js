@@ -156,6 +156,7 @@ var adminCategories = require('./routes/admin_categories.js');
 var adminCategoryImages = require('./routes/admin_category_images.js');
 var adminProducts = require('./routes/admin_products.js');
 var adminPromotions = require('./routes/admin_promotions.js');
+var adminOrders = require('./routes/admin_orders.js');
 
 app.use('/admin/pages', adminPages);
 app.use('/admin/brands', adminBrands);
@@ -168,6 +169,7 @@ app.use('/products', products);
 app.use('/cart', cart);
 app.use('/users', users);
 app.use('/', pages);
+app.use('/admin/orders', adminOrders);
 
 // Start the server
 const port = process.env.PORT || 3000;

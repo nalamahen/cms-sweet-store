@@ -131,7 +131,7 @@ router.get('/clear', function (req, res) {
  * GET buy now
  */
 
-router.get('/buynow', function (req, res) {
+router.get('/buynow', async (req, res) => {
 
     //console.log('req.session.cart', req.session.cart);
 
@@ -159,21 +159,24 @@ router.get('/buynow', function (req, res) {
 
     delete req.session.cart;
 
-    client.sendemail({
-        to: user.email,
-        from: 'mail2nalamahen@gmail.com', 
-        subject: 'Thank you for your order',
-        message: emailBody,
-        altText: 'plain text',
-    }, function(err, data, response) {
-        if(err) {
-            console.log(err);
-        }else {
-            order.save();
-            console.log('Email sent to: ', user.email);            
-        }
-    });
+    try {
 
+       client.sendemail({
+            to: user.email,
+            from: 'mail2nalamahen@gmail.com', 
+            subject: 'Thank you for your order',
+            message: emailBody,
+            altText: 'plain text'
+        }, (err, data, res) => {
+            if(err) console.log('Send email failed', err);
+        });
+
+        console.log('Email sent to: ', user.email);  
+        await order.save();
+        
+    } catch (error) {
+        res.status(422).send('Something failed: ' + error);
+    }
 
     //res.sendStatus(200);
     res.redirect('/cart/order');
