@@ -5,10 +5,13 @@ var paths = require('../config/paths');
 var ses = require('node-ses');
 var keys = require('../config/keys');
 var client = ses.createClient({key: keys.accessKeyId, secret: keys.secretAccessKey});
+var uniqid = require('uniqid');
 
 
 // Get Product model
 var Product = require('../models/product');
+
+var Order = require('../models/order');
 
 /*
  * GET add product to cart
@@ -132,12 +135,20 @@ router.get('/buynow', function (req, res) {
 
     //console.log('req.session.cart', req.session.cart);
 
+    
     const cartDetails = req.session.cart;
     const user = res.locals.user;
+    const orderNo = uniqid.time();
+    
+    const order = new Order({
+        orderNo,
+        user,
+        items: cartDetails
+    });
     
     var total = 0;
     var subTotal = 0;
-    var emailBody = `<!DOCTYPE html><html><head><title>Bizza Candy - order confirmation</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head><body><p>Dear ${user.name}, <br/><br/>Your below order has been received and we will contact you for payment details.</p><table class="table table-striped alignmiddle"><tr><th>Name</th><th>Price</th><th>Quantity</th><th>Sub Total</th></tr>`;
+    var emailBody = `<!DOCTYPE html><html><head><title>Bizza Candy - order confirmation</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head><body><p>Dear ${user.name}, <br/><br/>Order Number: ${orderNo}<br/><br/>Your below order has been received and we will contact you for payment details.</p><table class="table table-striped alignmiddle"><tr><th>Name</th><th>Price</th><th>Quantity</th><th>Sub Total</th></tr>`;
     cartDetails.forEach((product) => {
         subTotal = parseFloat(product.qty * product.price).toFixed(2);
         emailBody += `<tr><td>${product.title}</td><td>£${product.price}</td><td>${product.qty}</td><td>£${subTotal}</td>`;
@@ -158,7 +169,8 @@ router.get('/buynow', function (req, res) {
         if(err) {
             console.log(err);
         }else {
-            console.log('Email sent to: ', user.email);
+            order.save();
+            console.log('Email sent to: ', user.email);            
         }
     });
 
