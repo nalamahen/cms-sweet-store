@@ -35,8 +35,8 @@
                             <% }%>                                             
                         </div>
                     </td>
-                    <td><a href="/admin/orders/edit-order-item/<%= item._id %>">Edit</a></td>
-                    <td><a class="confirmDeletion" href="/admin/orders/delete-item/<%= item._id %>">Delete</a></td>
+                    <td><a href="/admin/orders/edit/<%=order._id%>/item/<%= item._id %>">Edit</a></td>
+                    <td><a class="confirmDeletion" href="/admin/orders/delete/<%=order._id%>/item/<%= item._id %>">Delete</a></td>
                 </tr>
                 <% }); %>                
             </tbody>
