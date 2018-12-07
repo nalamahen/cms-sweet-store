@@ -148,14 +148,14 @@ router.get('/buynow', async (req, res) => {
     
     var total = 0;
     var subTotal = 0;
-    var emailBody = `<!DOCTYPE html><html><head><title>Bizza Candy - order confirmation</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head><body><p>Dear ${user.name}, <br/><br/>Order Number: ${orderNo}<br/><br/>Your below order has been received and we will contact you for payment details.</p><table class="table table-striped alignmiddle"><tr><th>Name</th><th>Price</th><th>Quantity</th><th>Sub Total</th></tr>`;
+    var emailBody = `<!DOCTYPE html><html><head><title>Bizza Candy - order confirmation</title></head><body<img src="https://bizzcandy.com/images/logo.png"><p>Dear ${user.name}, <br/><br/>Order Number: ${orderNo}<br/><br/>Your below order has been received and we will contact you for payment details.</p><table style="background-color: transparent; width: 100%; max-width: 100%; margin-bottom: 20px; order-spacing: 0; border-collapse: collapse;"><tr style="padding:8px;line-height:1.42857143;vertical-align:top;border-top: 1px solid #ddd; background-color: #f9f9f9;"><th style="background-color: #f9f9f9;text-align: left; padding:8px;line-height:1.42857143;vertical-align:top;border-top: 1px solid #ddd;">Name</th><th>Price</th><th>Quantity</th><th>Sub Total</th></tr>`;
     cartDetails.forEach((product) => {
         subTotal = parseFloat(product.qty * product.price).toFixed(2);
-        emailBody += `<tr><td>${product.title}</td><td>£${product.price}</td><td>${product.qty}</td><td>£${subTotal}</td>`;
+        emailBody += `<tr style="padding:8px;line-height:1.42857143;vertical-align:top;border-top: 1px solid #ddd; background-color: #f9f9f9;"><td style="background-color: #f9f9f9;text-align: left; padding:8px;line-height:1.42857143;vertical-align:top;border-top: 1px solid #ddd;">${product.title}</td><td>£${product.price}</td><td>${product.qty}</td><td>£${subTotal}</td>`;
         total += +subTotal;
     });
 
-    emailBody += `<tr><td>&nbsp;</td><td>&nbsp;</td><td align="right"><b>Total:</b></td><td><b>£${parseFloat(total).toFixed(2)}</b></td></tr></table><br/><br/> Regards,<br>bizzacandy.com</body></html>`;
+    emailBody += `<tr style="padding:8px;line-height:1.42857143;vertical-align:top;border-top: 1px solid #ddd; background-color: #f9f9f9;"><td style="background-color: #f9f9f9;text-align: left; padding:8px;line-height:1.42857143;vertical-align:top;border-top: 1px solid #ddd;">&nbsp;</td><td>&nbsp;</td><td><b>Total:</b></td><td><b>£${parseFloat(total).toFixed(2)}</b></td></tr></table><br/><br/> Regards,<br>bizzacandy.com</body></html>`;
 
     delete req.session.cart;
 
@@ -163,7 +163,7 @@ router.get('/buynow', async (req, res) => {
 
        client.sendemail({
             to: user.email,
-            from: 'mail2nalamahen@gmail.com', 
+            from: 'thiruganesh@gmail.com', 
             subject: 'Thank you for your order',
             message: emailBody,
             altText: 'plain text'
