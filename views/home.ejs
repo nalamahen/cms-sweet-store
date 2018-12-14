@@ -83,15 +83,16 @@
                             <h4><%= p.name %></h4>                                                      
                         </div>
 
+                        <% if (loggedIn) { %>
                         <div class="price"><span>£<%= parseFloat(p.price).toFixed(2) %></span></div>
-
+                        <% } %>  
                         <div class="action-control">
                             <% if (loggedIn) { %>
                             <a href="/cart/add/<%= p.slug %>" class="btn btn-primary"> 
                                 <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i> Add to cart </span> 
                             </a>
                             <% } else {%>
-                            <p>Please login to purchase items.</p>
+                            <p>Please login to see price.</p>
                             <% } %>
                         </div>
                     </div>

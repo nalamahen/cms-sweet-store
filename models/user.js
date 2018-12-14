@@ -25,6 +25,10 @@ var UserSchema = mongoose.Schema({
     },
     admin: {
         type: Number
+    },
+    discount_code: {
+        type: [String],
+        trim: true
     }
     
 });

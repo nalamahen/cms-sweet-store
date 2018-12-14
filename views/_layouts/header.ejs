@@ -47,11 +47,8 @@
                 <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
                     <div class="pull-left ">
                         <ul class="userMenu ">
-                            <li><a href="#"> <span class="hidden-xs">HELP</span><i
-                                    class="glyphicon glyphicon-info-sign hide visible-xs "></i> </a></li>
-                            <li class="phone-number"><a href="callto:+12025550151"> <span> <i
-                                    class="glyphicon glyphicon-phone-alt "></i></span> <span class="hidden-xs"
-                                                                                             style="margin-left:5px"> +44 7903782209 </span>
+                            <li><a href="#"><span class="hidden-xs">HELP</span><i class="glyphicon glyphicon-info-sign hide visible-xs "></i></a></li>
+                            <li class="phone-number"><a href="#"> <span> <i class="glyphicon glyphicon-phone-alt "></i></span> <span class="hidden-xs" style="margin-left:5px"> +44 7877884697 </span>
                             </a></li>
                         </ul>
                     </div>
@@ -100,8 +97,10 @@
         </div>
 
         <div class="navbar-collapse collapse">
+            
             <ul class="nav navbar-nav">                                        
                 <% pages.forEach(function(page){ %>
+                    <!-- 
                     <% if (page.slug == "home") { %>
                         <li class="active">
                             <a href="/">
@@ -116,11 +115,12 @@
                         </li>
                         <% } %>
                     <% }); %>
+                    -->
                 <% if (user && user.admin == 1) { %>
                     <li><a href="/admin/pages">Admin Area</a></li>
                 <% }%>  
             </ul>
-
+        
             <!--- this part will be hidden for mobile version -->
             <div class="nav navbar-nav navbar-right hidden-xs">
                 <div class="dropdown  cartMenu "><a href="/cart/checkout" class="dropdown-toggle"> <i

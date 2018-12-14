@@ -8,20 +8,26 @@
             <tbody>
 
                 <tr class="CartProduct cartTableHeader">
-                    <td style="width:40%">Name</td>
-                    <td style="width:40%">Email</td>                                       
-                    <td style="width:20%">Telephone</td>     
-                    <td style="width:20%">Username</td> 
-                    <td style="width:20%">Orders</td>                                                                          
+                    <td style="width:10%">Name</td>
+                    <td style="width:20%">Email</td>                                       
+                    <td style="width:30%">Discount Code</td>   
+                    <td style="width:10%">Telephone</td>  
+                    <td style="width:10%">Username</td>                 
+                    <td style="width:10%">Orders</td>  
+                    <td style="width:10%">Edit</td>    
+                    <td style="width:10%">Delete</td>                                                                      
                 </tr>
 
                 <% users.forEach((user) => { %>
                 <tr class="CartProduct">
                     <td><%= user.name %></td>
                     <td><%= user.email %></td>
+                    <td><%= user.discount_code %></td>
                     <td><%= user.telephone %></td>
                     <td><%= user.username %></td>
                     <td><a href="/admin/orders/user/<%=user.id%>" alt="clicke hre view order">Orders</a></td>
+                    <td><a href="/admin/users/edit/<%=user.id%>">Edit</a></td>
+                    <td><a href="/admin/users/delete/<%=user.id%>">Delete</a></td>                
                 </tr>
                 <% }); %>                
             </tbody>
