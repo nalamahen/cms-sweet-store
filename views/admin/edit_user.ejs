@@ -1,0 +1,32 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title">Edit a user</h2>
+<a href="/users" class="btn btn-primary">Back to all users</a>
+<br><br>
+
+<form method="post" action="/users/edit/<%= user.id %>">
+    
+    <div class="form-group">
+        <label for="">Name</label>
+        <input type="text" class="form-control" name="name" value="<%= user.name %>" placeholder="Name">
+    </div>
+
+    <div class="form-group">
+        <label for="">Email</label>
+        <input type="text" class="form-control" name="email" value="<%= user.email %>" placeholder="Email">
+    </div>
+
+    <div class="form-group">
+        <label>Telephone</label>
+        <input type="text" name="telephone" value="<%=user.telephone%>" class="form-control" placeholder="Telephone">
+    </div>
+
+    <div class="form-group">
+        <label for="">Discount Code</label>
+        <input type="text" class="form-control" name="discount_code" value="<%= user.discount_code %>" placeholder="Discount Code">
+    </div>
+       
+    <button class="btn btn-primary">Submit</button>
+</form>
+
+<%- include('../_layouts/adminfooter') %>

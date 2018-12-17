@@ -26,8 +26,8 @@
                     <td><%= user.telephone %></td>
                     <td><%= user.username %></td>
                     <td><a href="/admin/orders/user/<%=user.id%>" alt="clicke hre view order">Orders</a></td>
-                    <td><a href="/admin/users/edit/<%=user.id%>">Edit</a></td>
-                    <td><a href="/admin/users/delete/<%=user.id%>">Delete</a></td>                
+                    <td><a href="/users/edit/<%=user.id%>">Edit</a></td>
+                    <td><a class="confirmDeletion" href="/users/delete/<%=user.id%>">Delete</a></td>                
                 </tr>
                 <% }); %>                
             </tbody>

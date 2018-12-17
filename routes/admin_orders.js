@@ -10,6 +10,7 @@ router.get('/', isAdmin, async (req, res) => {
         const orders = await Order.find()
             .populate('user', 'name email')        
             .sort('date');
+        
         res.render('admin/orders', {
             orders,
             count: orders.length            
