@@ -182,7 +182,7 @@ router.post('/edit-brand/:id', function (req, res) {
  * GET delete brand
  */
 router.get('/delete-brand/:id', isAdmin, function (req, res) {
-    console.log('req.params.id:', req.params.id);
+   
     Brand.findByIdAndRemove(req.params.id, function (err) {
         if (err)
             return console.log(err);

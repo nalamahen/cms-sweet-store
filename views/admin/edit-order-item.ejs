@@ -1,0 +1,27 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title">Edit a Order Item</h2>
+<a href="/admin/orders/<%= order.id %>" class="btn btn-primary">Back to order</a>
+<br><br>
+
+<form method="post" action="/admin/orders/edit/<%= order.id %>/item/<%= item.id %>">
+    
+    <div class="form-group">
+        <label for="">Item</label>
+        <input type="text" class="form-control" name="title" value="<%= item.title %>" placeholder="Item">
+    </div>
+    <div class="form-group">
+        <label for="">Price</label>
+        <input type="text" name="price" maxlength="6" size="6" value="<%= item.price %>" placeholder="Price">
+        <label for="">Quantatity</label>
+        <input type="text" name="qty" maxlength="6" size="6" value="<%= item.qty %>" placeholder="Quantatity">
+    </div>
+    <div class="form-group">
+        <label for="">Image</label>        
+        <img id="noimage" src="<%= item.image %>">
+    </div>
+       
+    <button class="btn btn-primary">Submit</button>
+</form>
+
+<%- include('../_layouts/adminfooter') %>

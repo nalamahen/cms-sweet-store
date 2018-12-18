@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/assets/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/adminstyle.css"/>
+    <link rel="stylesheet" href="/assets/css/adminstyle.css" />
 
     <!-- include pace script for automatic web page progress bar  -->
 
@@ -34,57 +35,57 @@
 
 <body>
 
-<!-- Fixed navbar start -->
-<div class="navbar navbar-tshop navbar-fixed-top megamenu" role="navigation">
-    <!--/.navbar-top-->
+    <!-- Fixed navbar start -->
+    <div class="navbar navbar-tshop navbar-fixed-top megamenu" role="navigation">
+        <!--/.navbar-top-->
 
-    <div class="container">
+        <div class="container">
 
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
-                    class="sr-only"> Toggle navigation </span> <span class="icon-bar"> </span> <span
-                    class="icon-bar"> </span> <span class="icon-bar"> </span>
-            </button>      
-            <a class="navbar-brand " href="/"> <img src="/images/logo.png" alt="Bizzcandy"> </a>  
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
+                        class="sr-only"> Toggle navigation </span> <span class="icon-bar"> </span> <span class="icon-bar">
+                    </span> <span class="icon-bar"> </span>
+                </button>
+                <a class="navbar-brand " href="/"> <img src="/images/logo.png" alt="Bizzcandy"> </a>
+            </div>
+
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/admin/pages">Pages</a></li>
+                    <li><a href="/admin/brands">Brands</a></li>
+                    <li><a href="/admin/categories">Categories</a></li>
+                    <li><a href="/admin/products">Products</a></li>
+                    <li><a href="/admin/promotions">Promotions</a></li>
+                    <li><a href="/admin/brand_images">Brand Images</a></li>
+                    <li><a href="/admin/category_images">Featured Category Images</a></li>
+                    <li><a href="/users">Users</a></li>
+                    <li><a href="/admin/orders">Orders</a></li>
+                    <li><a href="/users/logout">Logout</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+
         </div>
-        
-
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">                                                       
-                <li><a href="/admin/pages">Pages</a></li>   
-                <li><a href="/admin/brands">Brands</a></li> 
-                <li><a href="/admin/categories">Categories</a></li> 
-                <li><a href="/admin/products">Products</a></li> 
-                <li><a href="/admin/promotions">Promotions</a></li> 
-                <li><a href="/admin/brand_images">Brand Images</a></li> 
-                <li><a href="/admin/category_images">Category Images</a></li> 
-                <li><a href="/users">Users</a></li>    
-                <li><a href="/users/logout">Logout</a></li>                     
-            </ul>
-        </div>
-        <!--/.nav-collapse -->
+        <!--/.container -->
 
     </div>
-     <!--/.container -->
-    
-</div>
-<!-- /.Fixed navbar  -->
+    <!-- /.Fixed navbar  -->
 
-<div class="message-container">
-    <%- messages('messages', locals) %>  
-        
-    <% if (errors) {%>
-    <% errors.forEach(function(error) { %>
-    <div class="alert alert-danger">
-        <%= error.msg %>
+    <div class="message-container">
+        <%- messages('messages', locals) %>
+
+        <% if (errors) {%>
+        <% errors.forEach(function(error) { %>
+        <div class="alert alert-danger">
+            <%= error.msg %>
+        </div>
+        <% });%>
+        <% } %>
     </div>
-    <% });%>
-<% }%>
 
-<div class="container main-container headerOffset">
+    <div class="container main-container headerOffset">
 
         <div class="row innerPage">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="row userInfo">
-
-

@@ -14,11 +14,11 @@
         </div>
          <div class="col-xs-12 col-md-7">
             <p><%= p.desc %></p>
-            <p>£<%= parseFloat(p.price).toFixed(2) %></p>       
             <% if (loggedIn) { %>
+            <p>£<%= parseFloat(p.price).toFixed(2) %></p>       
             <p><a class="btn btn-info" href="/cart/add/<%= p.slug %>">Add to cartt</a></p>
             <% } else {%>
-            <p>Please login to purchase items.</p>
+            <p>Please login to see price.</p>
             <% } %>
         </div>   
     

@@ -78,7 +78,8 @@ a.link,
 .nav > li > a:hover,
 .nav > li > a:focus,
 .nav > li:hover > a {
-  background: #7742F8;
+  background:none;
+  text-decoration: underline;
 }
 .nav .open > a,
 .nav .open > a:hover,

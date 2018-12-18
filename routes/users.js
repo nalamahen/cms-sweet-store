@@ -102,6 +102,72 @@ router.post('/register', function (req, res) {
 });
 
 /*
+* Edit user
+*/
+
+router.get('/edit/:id', isAdmin,  async (req, res) => {
+
+    try {        
+        const user = await User.findById(req.params.id).select('-password');
+        res.render('admin/edit_user', {
+            user
+        })
+    } catch (error) {
+        res.render('admin/admin-error', {
+            error: 'Failed to load user:' + error
+        });
+    }
+   
+});
+
+router.post('/edit/:id', isAdmin, async(req, res) => {
+    const {name, email, telephone, discount_code} = req.body;
+    const userId = req.params.id;
+
+    req.checkBody('name', 'Name is required!').notEmpty();
+    req.checkBody('email', 'Email is required!').isEmail();
+    req.checkBody('telephone', 'Telephone number is required!').notEmpty();
+    req.checkBody('discount_code', 'Discount code is required!').notEmpty();
+
+    var errors = req.validationErrors();
+
+    if(errors) res.render('/edit/userId', {
+
+    });
+
+    try {
+        const user = await User.findById(userId);
+        user.name = name;
+        user.email = email;
+        user.telephone = telephone;
+        user.discount_code = discount_code.split(',');
+
+        res.redirect('/users')
+
+        user.save();
+    } catch (error) {
+        res.render('admin/admin-error', {
+            error: 'Failed to load user:' + error
+        });
+    }
+
+});
+
+router.get('/delete/:id', isAdmin, async (req, res) => {
+
+    try {
+        await User.findByIdAndRemove(req.params.id);
+
+        req.flash('success', 'user deleted!');
+        res.redirect('/users');
+    } catch (error) {
+        res.render('admin/admin-error', {
+            error: 'Failed to delete user:' + error
+        });
+    }
+});
+
+/*
  * GET login
  */
 router.get('/login', function (req, res) {
