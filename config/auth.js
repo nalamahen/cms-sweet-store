@@ -15,3 +15,4 @@ exports.isAdmin = function(req, res, next) {
         res.redirect('/users/login');
     }
 }
+

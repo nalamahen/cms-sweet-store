@@ -1,28 +1,29 @@
-var express = require('express');
-var router = express.Router();
-var nodemailer = require('nodemailer');
-var paths = require('../config/paths');
-var ses = require('node-ses');
-var keys = require('../config/keys');
-var client = ses.createClient({key: keys.accessKeyId, secret: keys.secretAccessKey});
-var uniqid = require('uniqid');
+const express = require('express');
+const router = express.Router();
+const paths = require('../config/paths');
+const ses = require('node-ses');
+const keys = require('../config/keys');
+const client = ses.createClient({key: keys.accessKeyId, secret: keys.secretAccessKey});
+const uniqid = require('uniqid');
+const applyDiscount = require('../service/applyDiscount');
+ 
+const Product = require('../models/product');
 
-
-// Get Product model
-var Product = require('../models/product');
-
-var Order = require('../models/order');
+const Order = require('../models/order');
 
 /*
  * GET add product to cart
  */
 router.get('/add/:product', function (req, res) {
 
-    var slug = req.params.product;
+    const slug = req.params.product;
 
     Product.findOne({ slug: slug }, function (err, p) {
         if (err)
             console.log(err);
+        if(res.locals.user != null) {
+            applyDiscount(res.locals.user.discount_code, p);
+        }
 
         if (typeof req.session.cart == "undefined") {
             req.session.cart = [];
