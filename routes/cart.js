@@ -132,16 +132,16 @@ router.get('/clear', function (req, res) {
  * GET buy now
  */
 
-router.get('/buynow', async (req, res) => {
+router.get('/buynow', function (req, res) {
 
     //console.log('req.session.cart', req.session.cart);
 
     
-    const cartDetails = req.session.cart;
-    const user = res.locals.user;
-    const orderNo = uniqid.time();
+    var cartDetails = req.session.cart;
+    var user = res.locals.user;
+    var orderNo = uniqid.time();
     
-    const order = new Order({
+    var order = new Order({
         orderNo,
         user,
         items: cartDetails
@@ -173,7 +173,7 @@ router.get('/buynow', async (req, res) => {
         });
 
         console.log('Email sent to: ', user.email);  
-        await order.save();
+        order.save();
         
     } catch (error) {
         res.status(422).send('Something failed: ' + error);
