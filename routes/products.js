@@ -76,10 +76,6 @@ router.post('/search', (req, res) => {
   
 });
 
-
-/*
- * GET products by brand
- */
 router.get('/:brand', function (req, res) {
     const brandSlug = req.params.brand;
     const loggedIn = (req.isAuthenticated()) ? true : false;
@@ -110,9 +106,6 @@ router.get('/:brand', function (req, res) {
 
 });
 
-/*
- * GET product details
- */
 router.get('/:brand/:product', function (req, res) {
     
     const loggedIn = (req.isAuthenticated()) ? true : false;
@@ -141,9 +134,6 @@ router.get('/:brand/:product', function (req, res) {
 
 });
 
-/*
- * GET products by category
- */
 router.get('/categories/category/:category', function (req, res) {
     const categorySlug = req.params.category;
     const loggedIn = (req.isAuthenticated()) ? true : false;
@@ -174,8 +164,6 @@ router.get('/categories/category/:category', function (req, res) {
 
 });
 
-
-// Exports
 module.exports = router;
 
 

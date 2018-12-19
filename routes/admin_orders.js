@@ -5,88 +5,67 @@ const isAdmin = auth.isAdmin;
 
 const Order = require('../models/order');
 
-router.get('/', isAdmin, async (req, res) => {
-    try {        
-        const orders = await Order.find()
-            .populate('user', 'name email')        
-            .sort('date');
-        
+router.get('/', isAdmin, (req, res) => {
+    Order.find((err, orders) => {
+
         res.render('admin/orders', {
             orders,
-            count: orders.length            
+            count: orders.length
         });
-    } catch (error) {        
-        res.render('admin/admin-error', {
-            error: 'Failed to load orders:' + error
-        });
-    }
+    }).populate('user', 'name email').sort('date');
 
 });
 
-router.get('/:id', isAdmin, async (req, res) => {
-    try {
-        const order = await Order.findById(req.params.id)
-            .populate('user', 'name')      
+router.get('/:id', isAdmin, (req, res) => {
+
+    Order.findById(req.params.id, (err, order) => {
+        if (err) console.log(err);
         res.render('admin/order-items', {
-            order          
+            order
         });
-    } catch (error) {
-        res.render('admin/admin-error', {
-            error: 'Failed to load order for id:' + error
-        });
-        
-    }
+    }).populate('user', 'name');
 });
 
-router.get('/user/:id', isAdmin, async (req, res) => {
-    try {
-        const orders = await Order.find({"user": {"_id": req.params.id}});                                                  
+router.get('/user/:id', isAdmin, (req, res) => {
+    Order.find({ "user": { "_id": req.params.id } }, (err, orders) => {
+        if(err) console.log(err);
         res.render('admin/orders', {
             orders,
-            count: orders.length          
+            count: orders.length
         });
-    } catch (error) {
-        res.render('admin/admin-error', {
-            error: 'Failed to load order for user:' + error
-        });
-        
-    }
+    });
 });
 
-router.get('/delete/:id', isAdmin, async (req, res) => {
-    try {
-            await Order.findByIdAndDelete(req.params.id);
+router.get('/delete/:id', isAdmin, (req, res) => {
 
-            req.flash('success', 'order deleted!');
-            res.redirect('/admin/orders/');
-    } catch (error) {
-        res.render('admin/admin-error', {
-            error: 'Failed to delete the order: ' + error 
-        });
-    }
+    Order.findByIdAndDelete(req.params.id, (err) => {
+        if(err) console.log(err);
+
+        req.flash('success', 'order deleted!');
+        res.redirect('/admin/orders/');
+    });
+
 });
 
-router.get('/edit/:orderId/item/:itemId', isAdmin, async (req, res) =>{
-    try {
-        const order = await Order.findById(req.params.orderId);
+router.get('/edit/:orderId/item/:itemId', isAdmin, (req, res) => {
+    Order.findById(req.params.orderId, (err, order) => {
+        if (err) console.log(err);
+
         const item = order.items.id(req.params.itemId);
-
         res.render('admin/edit-order-item', {
             order,
             item
         });
-    } catch (error) {
-        res.render('admin/admin-error', {
-            error: 'Failed to load item: ' + error 
-        });
-    }
+    });
 });
 
-router.post('/edit/:orderId/item/:itemId', isAdmin, async (req, res) => {
+router.post('/edit/:orderId/item/:itemId', isAdmin, (req, res) => {
     const { price, qty } = req.body;
-    try {
-        
-        const order = await Order.findById(req.params.orderId);
+
+
+    Order.findById(req.params.orderId, (err, order) => {
+        if (err) console.log(err);
+
         const item = order.items.id(req.params.itemId);
         item.price = price;
         item.qty = qty;
@@ -94,31 +73,24 @@ router.post('/edit/:orderId/item/:itemId', isAdmin, async (req, res) => {
         order.save();
 
         req.flash('success', 'order item updated!');
-        res.redirect('/admin/orders/'+ req.params.orderId);
-        
-    } catch (error) {
-        res.render('admin/admin-error', {
-            error: 'Failed to update item: ' + error 
-        });
-    }
+        res.redirect('/admin/orders/' + req.params.orderId);
+    });
 
 });
 
-router.get('/delete/:orderId/item/:itemId', isAdmin, async (req, res) => {
-    try {
+router.get('/delete/:orderId/item/:itemId', isAdmin, (req, res) => {
         
-        const order = await Order.findById(req.params.orderId);
+    Order.findById(req.params.orderId, (err, order) => {
+        if(err) console.log(err);
+
         const item = order.items.id(req.params.itemId);
         item.remove();
         order.save();
 
         req.flash('success', 'Item deleted');
         res.redirect('/admin/orders/'+req.params.orderId)
-    } catch (error) {
-        res.render('admin/admin-error', {
-            error: 'Failed to delete item: ' + error 
-        });
-    }
+    });
+
 });
 
 module.exports = router;

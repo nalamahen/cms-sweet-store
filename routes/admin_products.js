@@ -5,21 +5,11 @@ var paths = require('../config/paths');
 const bucket = require('../config/s3Bucket');
 var isAdmin = auth.isAdmin;
 var addAndRemoveImage = require('../service/addRemoveS3Image');
- 
 var s3Bucket = bucket('sweet-product-images');
-
-// Get Sweet model
 var Product = require('../models/product');
-
-// Get Brand model
 var Brand = require('../models/brand');
-
-// Get Category model
 var Category = require('../models/category');
 
-/*
- * GET products index
- */
 router.get('/', isAdmin, function (req, res) {
    
     Product.find(function (err, products) {
@@ -55,10 +45,6 @@ router.post('/search', isAdmin, (req, res) => {
   
 });
 
-
-/*
- * GET add product
- */
 router.get('/add-product', isAdmin, function (req, res) {
        
     var name = "";
@@ -81,10 +67,6 @@ router.get('/add-product', isAdmin, function (req, res) {
     });
 
 });
-
-/*
- * POST add product
- */
 
 router.post('/add-product', function (req, res) {
 
@@ -174,9 +156,6 @@ router.post('/add-product', function (req, res) {
 
 });
 
-/*
- * GET edit product
- */
 router.get('/edit-product/:id', isAdmin, function (req, res) {
 
     var errors;
@@ -219,11 +198,6 @@ router.get('/edit-product/:id', isAdmin, function (req, res) {
     });
 
 });
-
-
-/*
- * POST edit product
- */
 
 router.post('/edit-product/:id', function (req, res) {
 
@@ -304,11 +278,6 @@ router.post('/edit-product/:id', function (req, res) {
 
 });
 
-
-/*
- * GET delete product
- */
-
 router.get('/delete-product/:id', isAdmin, function (req, res) {
 
     var id = req.params.id;   
@@ -326,6 +295,5 @@ router.get('/delete-product/:id', isAdmin, function (req, res) {
 
 });
 
-// Exports
 module.exports = router;
 

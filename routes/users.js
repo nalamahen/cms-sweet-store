@@ -104,23 +104,18 @@ router.post('/register', function (req, res) {
 /*
 * Edit user
 */
+router.get('/edit/:id', isAdmin, (req, res) => {
 
-router.get('/edit/:id', isAdmin,  async (req, res) => {
-
-    try {        
-        const user = await User.findById(req.params.id).select('-password');
-        res.render('admin/edit_user', {
-            user
-        })
-    } catch (error) {
-        res.render('admin/admin-error', {
-            error: 'Failed to load user:' + error
+        User.findById(req.params.id, function(err, user) {
+            if(err) console.log(err);
+            
+            res.render('admin/edit_user', {
+                user
+            });       
         });
-    }
+    });
    
-});
-
-router.post('/edit/:id', isAdmin, async(req, res) => {
+router.post('/edit/:id', isAdmin, (req, res) => {
     const {name, email, telephone, discount_code} = req.body;
     const userId = req.params.id;
 
@@ -131,45 +126,30 @@ router.post('/edit/:id', isAdmin, async(req, res) => {
 
     var errors = req.validationErrors();
 
-    if(errors) res.render('/edit/userId', {
+        User.findById(userId, (err, user) => {
+            if(err) console.log(err);
 
-    });
+            user.name = name;
+            user.email = email;
+            user.telephone = telephone;
+            user.discount_code = discount_code.split(',');
+            
+            user.save();
 
-    try {
-        const user = await User.findById(userId);
-        user.name = name;
-        user.email = email;
-        user.telephone = telephone;
-        user.discount_code = discount_code.split(',');
-
-        res.redirect('/users')
-
-        user.save();
-    } catch (error) {
-        res.render('admin/admin-error', {
-            error: 'Failed to load user:' + error
+            res.redirect('/users')
         });
-    }
-
 });
 
-router.get('/delete/:id', isAdmin, async (req, res) => {
+router.get('/delete/:id', isAdmin, (req, res) => {
 
-    try {
-        await User.findByIdAndRemove(req.params.id);
-
+    User.findByIdAndRemove(req.params.id, (err) => {
+        if (err) console.log(err);
         req.flash('success', 'user deleted!');
         res.redirect('/users');
-    } catch (error) {
-        res.render('admin/admin-error', {
-            error: 'Failed to delete user:' + error
-        });
-    }
+    });
+
 });
 
-/*
- * GET login
- */
 router.get('/login', function (req, res) {
 
     if (res.locals.user) res.redirect('/');
@@ -180,9 +160,6 @@ router.get('/login', function (req, res) {
 
 });
 
-/*
- * POST login
- */
 router.post('/login', function (req, res, next) {
 
     passport.authenticate('local', {
@@ -193,9 +170,6 @@ router.post('/login', function (req, res, next) {
     
 });
 
-/*
- * GET logout
- */
 router.get('/logout', function (req, res) {
 
     req.logout();
@@ -205,7 +179,6 @@ router.get('/logout', function (req, res) {
 
 });
 
-// Exports
 module.exports = router;
 
 

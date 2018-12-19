@@ -5,11 +5,7 @@ const paths = require('../config/paths');
 const isAdmin = auth.isAdmin;
 const bucket = require('../config/s3Bucket');
 const addAndRemoveImage = require('../service/addRemoveS3Image');
-
-
 const s3Bucket = bucket('promotions-images');
-
-// Get Promotion model
 const Promotion = require('../models/promotion');
 
 router.get('/', isAdmin, (req, res) => {
@@ -21,7 +17,6 @@ router.get('/', isAdmin, (req, res) => {
         });
     });    
 });
-
 
 router.get('/add', isAdmin, (req, res) => {
 
@@ -185,6 +180,5 @@ router.get('/delete/:id', isAdmin, (req, res) => {
     });
 
 });
-
 
 module.exports = router;
