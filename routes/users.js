@@ -35,15 +35,9 @@ router.get('/register', function (req, res) {
 /*
  * POST register
  */
-router.post('/register', function (req, res) {
-
-    var name = req.body.name;
-    var email = req.body.email;
-    var telephone = req.body.telephone;
-    var username = req.body.username;
-    var password = req.body.password;
-    var password2 = req.body.password2;
-
+router.post('/register', function (req, res) {  
+    
+    const {name, email, telephone, address_line1, city, county, postcode, country, username, password, password2} = req.body;
     
     req.checkBody('name', 'Name is required!').notEmpty();
     req.checkBody('email', 'Email is required!').isEmail();
@@ -70,11 +64,16 @@ router.post('/register', function (req, res) {
                 res.redirect('/users/register');
             } else {
                 var user = new User({
-                    name: name,
-                    email: email,
-                    telephone: telephone,
-                    username: username,
-                    password: password,
+                    name,
+                    email,
+                    telephone,
+                    address_line1,
+                    city,
+                    county,
+                    postcode,
+                    country,
+                    username,
+                    password,
                     admin: 0
                 });
 
@@ -116,7 +115,7 @@ router.get('/edit/:id', isAdmin, (req, res) => {
     });
    
 router.post('/edit/:id', isAdmin, (req, res) => {
-    const {name, email, telephone, discount_code} = req.body;
+    const {name, email, telephone,  address_line1, city, county, postcode, country, discount_code} = req.body;
     const userId = req.params.id;
 
     req.checkBody('name', 'Name is required!').notEmpty();
@@ -132,6 +131,11 @@ router.post('/edit/:id', isAdmin, (req, res) => {
             user.name = name;
             user.email = email;
             user.telephone = telephone;
+            user.address_line1 = address_line1,
+            user.city = city,
+            user.county = county,
+            user.postcode = postcode,
+            user.country = country,
             user.discount_code = discount_code.split(',');
             
             user.save();

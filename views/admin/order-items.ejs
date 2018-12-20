@@ -15,7 +15,8 @@
                 <tr class="CartProduct cartTableHeader">
                     <td style="width:30%">Item</td>
                     <td style="width:10%">Price</td> 
-                    <td style="width:10%">Quantity</td>                                              
+                    <td style="width:10%">Quantity</td>   
+                    <td style="width:10%">Vat</td>                                           
                     <td style="width:40%">Image</td>     
                     <td style="width:20%">Edit</td>                                   
                     <td style="width:20%">Delete</td>
@@ -25,7 +26,8 @@
                 <tr class="CartProduct">
                     <td><%= item.title %></td>    
                     <td>£<%= parseFloat(item.price).toFixed(2) %></td> 
-                    <td><%= item.qty %></td>                    
+                    <td><%= item.qty %></td>     
+                    <td><% if(item.vat){ %> 1 <%}else{%> 0 <%}%></td>               
                     <td class="CartProductThumb">
                         <div>                                                                              
                             <% if (item.image == "") { %>

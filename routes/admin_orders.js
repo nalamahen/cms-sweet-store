@@ -60,7 +60,7 @@ router.get('/edit/:orderId/item/:itemId', isAdmin, (req, res) => {
 });
 
 router.post('/edit/:orderId/item/:itemId', isAdmin, (req, res) => {
-    const { price, qty } = req.body;
+    const { price, qty, vat } = req.body;
 
 
     Order.findById(req.params.orderId, (err, order) => {
@@ -69,6 +69,7 @@ router.post('/edit/:orderId/item/:itemId', isAdmin, (req, res) => {
         const item = order.items.id(req.params.itemId);
         item.price = price;
         item.qty = qty;
+        item.vat = vat == 'on' ? true : false;
 
         order.save();
 

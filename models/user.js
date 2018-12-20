@@ -15,6 +15,21 @@ var UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    address_line1: {
+        type: String
+    },
+    city: {
+        type: String
+    },
+    county: {
+        type: String
+    },
+    postcode: {
+        type: String
+    },
+    country: {
+        type: String
+    },
     username: {
         type: String,
         required: true

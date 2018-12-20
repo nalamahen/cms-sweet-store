@@ -12,7 +12,7 @@ $(function() {
          $("[data-fancybox]").fancybox();
      }    
  
-     $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+     $(".alert").fadeTo(1000, 500).slideUp(250, function () {
          $(".alert").alert('close');
      });
  });

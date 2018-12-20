@@ -9,15 +9,7 @@ const applyDiscount = require('../service/applyDiscount');
 
 let allBrandSlugs = [];
 
-let isValidDiscountCode = false;
-
-Brand.find(function (err, brands) {
-    if (err) {
-        console.log(err);
-    } else {
-        allBrandSlugs = brands.map(brand => brand.slug);
-    }
-});
+//let isValidDiscountCode = false;
 
 router.get('/', function (req, res) {
     const loggedIn = (req.isAuthenticated()) ? true : false;    
@@ -27,14 +19,7 @@ router.get('/', function (req, res) {
         
         if (err) console.log(err);
 
-        if(loggedIn) {
-            isValidDiscountCode = validateDiscountCode(res.locals.user.discount_code, allBrandSlugs);
-            if(isValidDiscountCode) {
-                products.map(product => {
-                    applyDiscount(res.locals.user.discount_code, product);
-                });
-            }
-        }
+        applyDiscountPrice(loggedIn, res, products);
 
         res.render('all_products', {
             title: 'All products',
@@ -56,14 +41,7 @@ router.post('/search', (req, res) => {
             console.log(err);
         }
 
-        if(loggedIn) {
-            isValidDiscountCode = validateDiscountCode(res.locals.user.discount_code, allBrandSlugs);
-            if(isValidDiscountCode) {
-                products.map(product => {
-                    applyDiscount(res.locals.user.discount_code, product);
-                });
-            }
-        }
+        applyDiscountPrice(loggedIn, res, products);
 
          res.render('all_products', {
             title: 'search products',
@@ -85,14 +63,7 @@ router.get('/:brand', function (req, res) {
             if (err)
                 console.log(err);
 
-            if(loggedIn) {
-                isValidDiscountCode = validateDiscountCode(res.locals.user.discount_code, allBrandSlugs);
-                if(isValidDiscountCode) {
-                    products.map(product => {
-                        applyDiscount(res.locals.user.discount_code, product);
-                    });
-                }
-            }
+            applyDiscountPrice(loggedIn, res, products);
 
             res.render('brand_products', {
                 title: c.name,
@@ -115,12 +86,7 @@ router.get('/:brand/:product', function (req, res) {
             console.log(err);
         } else {  
             
-            if(loggedIn) {
-                isValidDiscountCode = validateDiscountCode(res.locals.user.discount_code, allBrandSlugs);
-                if(isValidDiscountCode) {                   
-                    applyDiscount(res.locals.user.discount_code, product);                  
-                }
-            }
+            applyDiscountPrice(loggedIn, res, products);
             
             res.render('product', {
                 title: product.name,
@@ -143,14 +109,7 @@ router.get('/categories/category/:category', function (req, res) {
             if (err)
                 console.log(err);
 
-            if(loggedIn) {
-                isValidDiscountCode = validateDiscountCode(res.locals.user.discount_code, allBrandSlugs);
-                if(isValidDiscountCode) {
-                    products.map(product => {
-                        applyDiscount(res.locals.user.discount_code, product);
-                    });
-                }
-            }
+            applyDiscountPrice(loggedIn, res, products);
 
             res.render('brand_products', {
                 title: c.name,
@@ -166,4 +125,22 @@ router.get('/categories/category/:category', function (req, res) {
 
 module.exports = router;
 
+function applyDiscountPrice(loggedIn, res, products) {
+    if (loggedIn) {
+        const isValidDiscountCode = validateDiscountCode(res.locals.user.discount_code, allBrandSlugs);
+        if (isValidDiscountCode) {
+            products.map(product => {
+                applyDiscount(res.locals.user.discount_code, product);
+            });
+        }
+    }
+}
+
+Brand.find(function (err, brands) {
+    if (err) {
+        console.log(err);
+    } else {
+        allBrandSlugs = brands.map(brand => brand.slug);
+    }
+});
 

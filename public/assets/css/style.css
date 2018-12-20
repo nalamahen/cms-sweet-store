@@ -2170,7 +2170,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 }
 
 .sectionCategoryIntro h1 {
-    font-family: Oswald;
+    /*font-family: Oswald;*/
     font-size: 22px;
     color: #454545;
     font-weight: lighter;
@@ -2251,7 +2251,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 }
 
 #productShowCase .product-title {
-    font-family: oswald;
+    /*font-family: oswald;*/
     font-size: 24px;
     font-weight: normal;
     letter-spacing: 0.25px;

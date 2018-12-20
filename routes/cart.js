@@ -31,7 +31,8 @@ router.get('/add/:product', function (req, res) {
                 title: slug,
                 qty: 1,
                 price: parseFloat(p.price).toFixed(2),
-                image: paths.s3ImageUrl + '/' + p.image
+                image: paths.s3ImageUrl + '/' + p.image,
+                vat: p.vat
             });
         } else {
             var cart = req.session.cart;
@@ -50,7 +51,8 @@ router.get('/add/:product', function (req, res) {
                     title: slug,
                     qty: 1,
                     price: parseFloat(p.price).toFixed(2),
-                    image: paths.s3ImageUrl + '/' + p.image 
+                    image: paths.s3ImageUrl + '/' + p.image,
+                    vat: p.vat
                 });
             }
         }
@@ -156,7 +158,7 @@ router.get('/buynow', function (req, res) {
         total += +subTotal;
     });
 
-    emailBody += `<tr style="padding:8px;line-height:1.42857143;vertical-align:top;border-top: 1px solid #ddd; background-color: #f9f9f9;"><td style="background-color: #f9f9f9;text-align: left; padding:8px;line-height:1.42857143;vertical-align:top;border-top: 1px solid #ddd;">&nbsp;</td><td>&nbsp;</td><td><b>Total:</b></td><td><b>£${parseFloat(total).toFixed(2)}</b></td></tr></table><br/><br/> Regards,<br>bizzacandy.com</body></html>`;
+    emailBody += `<tr style="padding:8px;line-height:1.42857143;vertical-align:top;border-top: 1px solid #ddd; background-color: #f9f9f9;"><td style="background-color: #f9f9f9;text-align: left; padding:8px;line-height:1.42857143;vertical-align:top;border-top: 1px solid #ddd;">&nbsp;</td><td>&nbsp;</td><td><b>Total:</b></td><td><b>£${parseFloat(total).toFixed(2)}</b></td></tr></table><p><b><i>All prices exclude tax and tax will be added to the total.</i></b></p><br/><br/> Regards,<br>bizzacandy.com</body></html>`;
 
     delete req.session.cart;
 
@@ -164,7 +166,8 @@ router.get('/buynow', function (req, res) {
 
        client.sendemail({
             to: user.email,
-            from: 'thiruganesh@gmail.com', 
+            from: 'bizzcandy@gmail.com',
+            cc: 'thiruganesh@gmail.com,mail2mahen@yahoo.co.uk', 
             subject: 'Thank you for your order',
             message: emailBody,
             altText: 'plain text'
