@@ -1,0 +1,224 @@
+<%- include('../_layouts/adminheader') %>
+
+<link href="assets/css/invoice.css" rel="stylesheet">
+<link rel='stylesheet' type='text/css' href='css/print.css' media="print" />
+
+<div class="container main-container">
+
+    <div class=" invoice-wrapper content">
+
+        <div class="row">
+            <div class="col-lg-12 col-xs-12 col-sm-12 col-xs-12">
+                <h1 class="section-title-inner"><span><i class="fa fa-print"></i> Invoice </span></h1>
+
+                <div class="row userInfo">
+                    <div class="col-lg-12">
+                        <h2 class="block-title-2"> Invoice Details </h2>                       
+                    </div>
+
+
+                    <div class="col-sm-12 invTop">
+                        <table class="w100">
+                            <tr>
+                                <td>
+                                    <div class="invInfo text-left">
+
+                                        <h3><span><strong>Invoice Ref:</strong> </span>
+                                            <span><%=order.orderNo %></span></h3>
+
+                                        <p><span><strong>Invoice Date :</strong></span><span><%=order.date.toDateString() %> </span></p>                                       
+                                        <!-- <p><span> <strong>Status: </strong></span> <span><% if(order.paid){%> Paid <%}else{%> Not Paid <%}%></span></p> -->
+
+                                    </div>
+
+                                </td>
+                                <td>
+
+                                    <div class="invCompany text-right">
+                                        <img src="/images/invoice-logo.png" alt="Company">
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        </table>
+                        <hr class="invHr">
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12 col-md-6">
+                        <div class="order-box">
+                            <div class="order-box-header">
+                                Client Information:
+                            </div>
+
+
+                            <div class="order-box-content">
+                                <div class="address">
+
+                                    <p><strong><%=order.user.name%></strong><br>
+                                        <%=order.user.address_line1%><br>
+                                        <%=order.user.city%> <%=order.user.county%><br>
+                                        <%=order.user.postcode%> <%=order.user.country%><br>
+                                        Phone: <%=order.user.telephone%><br>
+                                        Email: <%=order.user.email%>                                        
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-6 col-sm-6 col-xs-12 col-md-6">
+                        <div class="order-box">
+                            <div class="order-box-header">
+
+                                Peyment To:
+                            </div>
+
+
+                            <div class="order-box-content">
+
+
+                                <div class="address">
+
+                                    <p><strong>Mr T Ganesharuban</strong><br>
+                                        279 Mays Lane<br>
+                                        Barnet, Hertfordshire EN5 2LY<br>
+                                        Phone: +44 7877 884697<br>
+                                        Email: bizzcandy@gmail.com                            
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div style="clear: both"></div>
+
+
+                    <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 clearfix">
+                        <div class="order-box invTable">
+
+                            <div class="order-box-header">
+                                Invoice Details
+                            </div>
+
+                            <div class="order-box-content ">
+                                <div class="table-responsive">
+                                    <table class="table">                                        
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Product</th>                                                
+                                                <th>VAT</th>
+                                                <th>Quantity</th>
+                                                <th>Unit Cost</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% order.items.forEach((item, index) => {%>
+                                            <tr>
+                                                <th scope="row"><%=index + 1%></th>
+                                                <td><%=item.title%></td>
+                                                <td><%if(item.vat){%>1 <%}else{%> 0 <%}%></td>
+                                                <td><%=item.qty%></td>
+                                                <td><%=parseFloat(item.price).toFixed(2)%></td>
+                                                <td><%=parseFloat(item.qty * item.price).toFixed(2)%></td>
+                                            </tr>
+                                            <%})%>                                        
+                                           
+                                            <tr class="invTableFooter">
+                                                <td colspan="6">
+                                                    <table width="200" cellspacing="0" cellpadding="6" border="0" align="right">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td valign="middle" align="left" class="">
+                                                                    <div style="">
+                                                                        <span>
+                                                                            Subtotal
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td valign="middle" align="right" class="">
+                                                                    <div>
+                                                                        <span>
+                                                                            £ <%=parseFloat(subTotal).toFixed(2)%>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td valign="middle" align="left" class="" style="">
+                                                                    <div style="">
+                                                                        <span>
+                                                                            Tax
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td valign="middle" align="right" class="title_color">
+                                                                    <div>
+                                                                        <span class="text_container">
+                                                                            £ <%=parseFloat(vat).toFixed(2)%>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr bgcolor="#ECF0F1" class="price">
+                                                                <td valign="middle" align="left">
+                                                                    <div>
+                                                                        <span class="">
+                                                                            Total
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td style="text-align: right">
+                                                                    <div>
+                                                                        <span class="price-total">
+                                                                            £ <%=parseFloat(total).toFixed(2)%>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div style="clear: both"></div>
+
+
+                    <div class="col-lg-12 clearfix hidePrint">
+                        <ul class="pager">
+                            <li class="previous pull-right"><a class="btn btn-print" onclick="javascript:window.print();">
+                                    <i class="fa fa-print"></i> Print </a>
+                            </li>
+                            <li class="next pull-left"><a href="/admin/orders/<%=order._id%>"> ← Back to Order</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--/row end-->
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<%- include('../_layouts/adminfooter') %>

@@ -94,4 +94,23 @@ router.get('/delete/:orderId/item/:itemId', isAdmin, (req, res) => {
 
 });
 
+router.get('/invoice/:orderId', isAdmin, (req, res) => {
+    let subTotal = 0;
+    let vat = 0;
+    Order.findById(req.params.orderId).populate('user').exec((err, order) => {
+        if(err) console.log(err);
+        order.items.map(item => {
+            subTotal += (item.qty * item.price);
+        });
+        vat = subTotal * 0.2;
+        res.render('admin/invoice', {
+            order,
+            subTotal,
+            vat,
+            total: (vat + subTotal)
+        });
+    });
+
+});
+
 module.exports = router;

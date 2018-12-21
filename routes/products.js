@@ -9,8 +9,6 @@ const applyDiscount = require('../service/applyDiscount');
 
 let allBrandSlugs = [];
 
-//let isValidDiscountCode = false;
-
 router.get('/', function (req, res) {
     const loggedIn = (req.isAuthenticated()) ? true : false;    
 
