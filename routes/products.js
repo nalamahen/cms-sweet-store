@@ -31,29 +31,39 @@ router.get('/', function (req, res) {
 });
 
 router.post('/search', (req, res) => {
-    const searchText = req.body.search;
+    let searchText = req.body.search;
+
+    if(searchText) {
+        req.session.searchTerm ='';
+        //store the searchText on session for redirect product search page
+        req.session.searchTerm = searchText;
+    }else {
+        searchText = req.session.searchTerm;
+    }
+
     const loggedIn = (req.isAuthenticated()) ? true : false;
    
-    Product.find({"name" : {'$regex': new RegExp(searchText, "i")}, "instock":true} , (err, products) => {        
-        if(err) {
-            console.log(err);
-        }
-
-        applyDiscountPrice(loggedIn, res, products);
-
-         res.render('all_products', {
-            title: 'search products',
-            products: products,
-            count: products.length,
-            loggedIn: loggedIn,
-            productImageUrl: paths.s3ImageUrl,
-        });
-    });
+    searchProduct(searchText, loggedIn, res);
   
+});
+
+router.get('/search', (req, res) => {
+
+    const loggedIn = (req.isAuthenticated()) ? true : false;
+    const searchText = req.session.searchTerm;
+   
+    searchProduct(searchText, loggedIn, res);
+
 });
 
 router.get('/:brand', function (req, res) {
     const brandSlug = req.params.brand;
+
+    if(brandSlug === 'search') {
+        res.redirect('/products/search');
+        return;
+    }
+
     const loggedIn = (req.isAuthenticated()) ? true : false;
 
     Brand.findOne({slug: brandSlug}, function (err, c) {
@@ -78,12 +88,13 @@ router.get('/:brand', function (req, res) {
 router.get('/:brand/:product', function (req, res) {
     
     const loggedIn = (req.isAuthenticated()) ? true : false;
+    let products = [];
 
     Product.findOne({slug: req.params.product}, function (err, product) {
         if (err) {
             console.log(err);
         } else {  
-            
+            products.push(product);            
             applyDiscountPrice(loggedIn, res, products);
             
             res.render('product', {
@@ -122,6 +133,28 @@ router.get('/categories/category/:category', function (req, res) {
 });
 
 module.exports = router;
+
+function searchProduct(searchText, loggedIn, res) {
+    if(!searchText) {
+        res.redirect('/');
+        return;
+    }
+
+    Product.find({ "name": { '$regex': new RegExp(searchText, "i") }, "instock": true }, (err, products) => {
+        if (err) {
+            console.log(err);
+        }
+        applyDiscountPrice(loggedIn, res, products);
+        res.render('all_products', {
+            title: 'search products',
+            searchText: searchText,
+            products: products,
+            count: products.length,
+            loggedIn: loggedIn,
+            productImageUrl: paths.s3ImageUrl,
+        });
+    });
+}
 
 function applyDiscountPrice(loggedIn, res, products) {
     if (loggedIn) {
