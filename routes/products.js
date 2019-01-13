@@ -33,8 +33,7 @@ router.get('/', function (req, res) {
 router.post('/search', (req, res) => {
     let searchText = req.body.search;
 
-    if(searchText) {
-        req.session.searchTerm ='';
+    if(searchText) {       
         //store the searchText on session for redirect product search page
         req.session.searchTerm = searchText;
     }else {
