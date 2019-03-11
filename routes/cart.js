@@ -167,7 +167,7 @@ router.get('/buynow', function (req, res) {
        client.sendemail({
             to: user.email,
             from: 'bizzcandy@gmail.com',
-            cc: 'thiruganesh@gmail.com,mail2mahen@yahoo.co.uk', 
+            cc: 'thiruganesh@gmail.com', 
             subject: 'Thank you for your order',
             message: emailBody,
             altText: 'plain text'
