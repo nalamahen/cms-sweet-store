@@ -240,10 +240,11 @@ router.get("/delete-page/:id", isAdmin, function(req, res) {
 /* Test email */
 router.get("/test-email", isAdmin, function(req, res) {
   var aws = require("aws-sdk");
-  //var keys = require('../config/keys');
+  var keys = require("../config/keys");
 
   // Provide the full path to your config.json file.
-  aws.config.loadFromPath("./config/config.json");
+  //aws.config.loadFromPath("./config/config.json");
+  aws.config.credentials = keys;
 
   // Replace sender@example.com with your "From" address.
   // This address must be verified with Amazon SES.
