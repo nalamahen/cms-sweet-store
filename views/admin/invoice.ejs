@@ -110,7 +110,8 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Product</th>                                                
+                                                <th>Product</th>   
+                                                <th>Product Code</th>                                                
                                                 <th>VAT</th>
                                                 <th>Quantity</th>
                                                 <th>Unit Cost</th>
@@ -122,6 +123,7 @@
                                             <tr>
                                                 <th scope="row"><%=index + 1%></th>
                                                 <td><%=item.title%></td>
+                                                <td><%=item.product_code%></td>
                                                 <td><%if(item.vat){%>1 <%}else{%> 0 <%}%></td>
                                                 <td><%=item.qty%></td>
                                                 <td><%=parseFloat(item.price).toFixed(2)%></td>

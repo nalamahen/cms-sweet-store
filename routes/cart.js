@@ -32,7 +32,8 @@ router.get('/add/:product', function (req, res) {
                 qty: 1,
                 price: parseFloat(p.price).toFixed(2),
                 image: paths.s3ImageUrl + '/' + p.image,
-                vat: p.vat
+                vat: p.vat,
+                product_code: p.product_code
             });
         } else {
             var cart = req.session.cart;
@@ -52,7 +53,8 @@ router.get('/add/:product', function (req, res) {
                     qty: 1,
                     price: parseFloat(p.price).toFixed(2),
                     image: paths.s3ImageUrl + '/' + p.image,
-                    vat: p.vat
+                    vat: p.vat,
+                    product_code: p.product_code
                 });
             }
         }
