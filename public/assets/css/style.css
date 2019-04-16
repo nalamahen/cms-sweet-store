@@ -1049,11 +1049,10 @@ legend {
     font-size: 20px;
     line-height: 1.2;
     margin: 0;
-    outline: medium none;
-    text-align: right;
+    outline: medium none;    
     padding: 13px 0 13px 15px;
     width: 100%;
-    max-width: 90%;
+    max-width: 50%;
 }
 
 .search-input::-webkit-input-placeholder {
@@ -2581,7 +2580,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
     z-index: 2;
 }
 
-.style2 .section-title span, .section-title.style2 span, {
+.style2 .section-title span, .section-title.style2 span {
     color: #454545;
     display: table;
     position: relative;
@@ -5958,30 +5957,30 @@ div.quickview {
 }
 
 /* ORDER STATUS */
-
 .order-box {
     background: #fff;
     border: solid 1px #ccc;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .order-box-header {
     background: #ebeded;
-    font-weight: bold;
-    padding: 10px;
-    text-transform: uppercase;
+    font-weight: bold;        
 }
 
 .order-box-content {
-    padding: 15px;
+    padding: 1px;
 }
 
 .order-box-content table td {
-    padding: 5px;
+    padding: 1px;
 }
 
+.orderTable>tbody>tr>td, .mytable>tbody>tr>th, .mytable>tfoot>tr>td, .mytable>tfoot>tr>th, .mytable>thead>tr>td, .mytable>thead>tr>th {
+    padding: 2px;
+}
 .statusTop {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .statusTop p {
@@ -6014,7 +6013,6 @@ div.quickview {
     float: none;
     margin-left: auto;
     margin-right: auto;
-
 }
 
 .thanxContent {
@@ -6513,4 +6511,11 @@ div.quickview {
         line-height: normal;
     }
 
+}
+
+.contact {
+    color: #FFF;
+    font-size: 12px;
+    line-height: 30px;
+    padding: 0 20px 0 0;
 }
