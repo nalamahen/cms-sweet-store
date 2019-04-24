@@ -237,45 +237,5 @@ router.get("/delete-page/:id", isAdmin, function(req, res) {
   });
 });
 
-/* Test email */
-router.get("/test-email", isAdmin, function(req, res) {
-  const aws = require("aws-sdk");
-  const keys = require("../config/keys");
-  const emailParams = require("../service/email");
-
-  aws.config.accessKeyId = keys.accessKeyId;
-  aws.config.secretAccessKey = keys.secretAccessKey;
-
-  const sender = emailParams.fromAddress;
-  const recipient = "sujimahen@gmail.com";
-  const carbonCopy = "mail2mahen@yahoo.co.uk";
-  const subject = "Amazon SES Test (AWS SDK for JavaScript in Node.js)";
-  const body_html = `<html>
-<head></head>
-<body><h1>Amazon SES Test (SDK for JavaScript in Node.js)</h1><p>This email was sent with<a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the <a href='https://aws.amazon.com/sdk-for-node-js/'>AWS SDK for JavaScript in Node.js</a>.</p></body></html>`;
-
-  const ses = new aws.SES();
-  const params = emailParams.getParams(
-    sender,
-    recipient,
-    carbonCopy,
-    subject,
-    body_html
-  );
-
-  ses.sendEmail(params, function(err, data) {
-    if (err) {
-      console.log(err.message);
-      res.render("admin/admin_error", {
-        error: err
-      });
-    } else {
-      console.log("from address", sender);
-      console.log("Email sent");
-      res.redirect("/cart/order");
-    }
-  });
-});
-
 // Exports
 module.exports = router;
