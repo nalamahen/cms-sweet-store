@@ -1,17 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const paths = require("../config/paths");
-const ses = require("node-ses");
 const keys = require("../config/keys");
-const client = ses.createClient({
-  key: keys.accessKeyId,
-  secret: keys.secretAccessKey
-});
+const aws = require("aws-sdk");
+const emailParams = require("../service/email");
 const uniqid = require("uniqid");
 const applyDiscount = require("../service/applyDiscount");
-
 const Product = require("../models/product");
-
 const Order = require("../models/order");
 
 /*
@@ -130,6 +125,8 @@ router.get("/clear", function(req, res) {
 
 router.get("/buynow", function(req, res) {
   //console.log('req.session.cart', req.session.cart);
+  aws.config.accessKeyId = keys.accessKeyId;
+  aws.config.secretAccessKey = keys.secretAccessKey;
 
   var cartDetails = req.session.cart;
   var user = res.locals.user;
@@ -164,20 +161,24 @@ router.get("/buynow", function(req, res) {
 
   delete req.session.cart;
 
+  const ses = new aws.SES();
+  const params = emailParams.getParams(
+    emailParams.fromAddress,
+    user.email,
+    emailParams.carbonCopy,
+    "Thank you for your order",
+    emailBody
+  );
+
   try {
-    client.sendemail(
-      {
-        to: user.email,
-        from: "bizzcandy@gmail.com",
-        cc: "thiruganesh@gmail.com",
-        subject: "Thank you for your order",
-        message: emailBody,
-        altText: "plain text"
-      },
-      (err, data, res) => {
-        if (err) console.log("Send email failed", err);
+    ses.sendEmail(params, function(err, data) {
+      if (err) {
+        console.log(err.message);
+        res.render("admin/admin_error", {
+          error: err
+        });
       }
-    );
+    });
 
     console.log("Email sent to: ", user.email);
     order.save();
@@ -185,7 +186,6 @@ router.get("/buynow", function(req, res) {
     res.status(422).send("Something failed: " + error);
   }
 
-  //res.sendStatus(200);
   res.redirect("/cart/order");
 });
 
