@@ -316,8 +316,14 @@ router.get("/test-email", isAdmin, function(req, res) {
     // If something goes wrong, print an error message.
     if (err) {
       console.log(err.message);
+      res.render("admin/admin_error", {
+        error: err
+      });
     } else {
       console.log("Email sent! Message ID: ", data.MessageId);
+      res.render("admin/admin_error", {
+        error: "Email sent! Message ID: " + data.MessageId
+      });
     }
   });
 });
