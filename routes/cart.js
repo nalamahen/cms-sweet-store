@@ -175,22 +175,14 @@ router.get("/buynow", function(req, res) {
         altText: "plain text"
       },
       (err, data, res) => {
-        if (err) {
-          console.log("Send email failed", err);
-          res.render("admin/admin_error", {
-            error: err
-          });
-        }
+        if (err) console.log("Send email failed", err);
       }
     );
 
     console.log("Email sent to: ", user.email);
     order.save();
   } catch (error) {
-    //res.status(422).send("Something failed: " + error);
-    res.render("admin/admin_error", {
-      error: error
-    });
+    res.status(422).send("Something failed: " + error);
   }
 
   //res.sendStatus(200);
