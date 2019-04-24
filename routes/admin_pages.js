@@ -243,8 +243,9 @@ router.get("/test-email", isAdmin, function(req, res) {
   var keys = require("../config/keys");
 
   // Provide the full path to your config.json file.
-  aws.config.loadFromPath("./config/config.json");
-  //aws.config.credentials = keys;
+  //aws.config.loadFromPath("./config/config.json");
+  aws.config.accessKeyId = keys.accessKeyId;
+  aws.config.secretAccessKey = keys.secretAccessKey;
 
   // Replace sender@example.com with your "From" address.
   // This address must be verified with Amazon SES.
